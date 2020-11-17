@@ -14,14 +14,13 @@ public class ScratchTest {
     public static void main(String[] args) {
 
         AnsiUtils.installConsole();
+        Input.openScanner();
 
-        AnsiUtils.printInBoxWithTitle(
-                "'Twas brillig and the slithy toves did gyre and gimble in the wabe. All mimsy were the borogoves, and the mome raths outgrabe.",
-                "Jabberwocky", 10, 5, 30);
-
-        AnsiUtils.setCursorPos(20, 0);
+        Menu testMenu1 = new Menu("Test Menu", "Option 1", "Option 2", "Option 3");
+        testMenu1.callPage();
 
         AnsiUtils.uninstallConsole();
+        Input.closeScanner();
 
     }
 

@@ -1,4 +1,4 @@
-package ch.pearcenet.easymenus;
+package ch.pearcenet.easymenus.util;
 
 import org.fusesource.jansi.Ansi;
 

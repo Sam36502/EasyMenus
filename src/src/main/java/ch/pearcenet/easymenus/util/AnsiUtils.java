@@ -1,6 +1,5 @@
 package ch.pearcenet.easymenus.util;
 
-import ch.pearcenet.easymenus.Colour;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
