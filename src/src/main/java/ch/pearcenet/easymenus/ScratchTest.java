@@ -19,6 +19,7 @@ public class ScratchTest {
         Menu testMenu1 = new Menu("Test Menu", "Option 1", "Option 2", "Option 3");
         testMenu1.callPage();
 
+        AnsiUtils.setCursorPos(30, 3);
         AnsiUtils.uninstallConsole();
         Input.closeScanner();
 

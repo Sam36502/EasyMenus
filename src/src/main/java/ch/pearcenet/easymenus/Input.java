@@ -19,7 +19,7 @@ public class Input {
     public static void closeScanner() { input.close(); }
 
     public static String getString() {
-        System.out.println(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "> ");
+        System.out.print(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "> ");
         return input.nextLine();
     }
 

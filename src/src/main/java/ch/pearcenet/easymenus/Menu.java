@@ -50,6 +50,8 @@ public class Menu implements MenuPage {
         optionStr += "\n(Enter option number and press enter)\n";
         AnsiUtils.printWithMargins(optionStr, Constants.DEFAULT_MENU_OPTS_X, Constants.DEFAULT_MENU_OPTS_Y);
 
-        // Get
+        // Get user's answer
+        int chosen = Input.getInt(1, options.size() + 1) - 1;
+        AnsiUtils.printInBoxWithTitle(options.get(chosen), "You Chode:", 10, 5, 20);
     }
 }
