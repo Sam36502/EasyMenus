@@ -2,9 +2,6 @@ package ch.pearcenet.easymenus;
 
 import ch.pearcenet.easymenus.util.AnsiUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ScratchTest {
 
     /**
@@ -16,7 +13,15 @@ public class ScratchTest {
 
     public static void main(String[] args) {
 
-        AnsiUtils.printInBox("'Twas brillig and the slithy toves did gyre and gimble in the wabe. All mimsy were the borogoves, and the mome raths outgrabe.", 10, 5);
+        AnsiUtils.installConsole();
+
+        AnsiUtils.printInBoxWithTitle(
+                "'Twas brillig and the slithy toves did gyre and gimble in the wabe. All mimsy were the borogoves, and the mome raths outgrabe.",
+                "Jabberwocky", 10, 5, 30);
+
+        AnsiUtils.setCursorPos(20, 0);
+
+        AnsiUtils.uninstallConsole();
 
     }
 

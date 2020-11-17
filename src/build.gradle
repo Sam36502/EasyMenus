@@ -9,6 +9,18 @@ repositories {
     mavenCentral()
 }
 
+// For testing; remove before release
+task testJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Test JAR File',
+                'Implementation-Version': version,
+                'Main-Class': 'ch.pearcenet.easymenus.ScratchTest'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
