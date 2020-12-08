@@ -18,11 +18,27 @@ public class Input {
     public static void openScanner() { input = new Scanner(System.in); }
     public static void closeScanner() { input.close(); }
 
+    /**
+     * Waits until the enter key is pressed
+     */
+    public static void waitForEnter() {
+        input.nextLine();
+    }
+
+    /**
+     * Prompts the user for input and returns it.
+     * @return The string the user entered
+     */
     public static String getString() {
         System.out.print(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "> ");
         return input.nextLine();
     }
 
+    /**
+     * Prompts the user for an integer and
+     * handles any invalid input.
+     * @return The integer the user entered
+     */
     public static int getInt() {
         String in = getString();
         boolean isValid = false;
@@ -42,6 +58,14 @@ public class Input {
 
         return i;
     }
+
+    /**
+     * Prompts the user for an integer within a range and
+     * handles any invalid or out-of-range input.
+     * @param min
+     * @param max
+     * @return The integer the user entered
+     */
     public static int getInt(final int min, final int max) {
         boolean isValid = false;
         int i = getInt();

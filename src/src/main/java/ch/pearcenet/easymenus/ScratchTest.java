@@ -1,5 +1,8 @@
 package ch.pearcenet.easymenus;
 
+import ch.pearcenet.easymenus.pages.MenuPage;
+import ch.pearcenet.easymenus.pages.Page;
+import ch.pearcenet.easymenus.pages.TextPage;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 
 public class ScratchTest {
@@ -16,10 +19,21 @@ public class ScratchTest {
         AnsiUtils.installConsole();
         Input.openScanner();
 
-        Menu testMenu1 = new Menu("Test Menu", "Option 1", "Option 2", "Option 3");
-        testMenu1.callPage();
+        Page mainMenu = new MenuPage("Test System",
+                new TextPage("Menu Intro", "Hello!\nThanks for using EasyMenus!\n\nThis is a simple text page with some info. Select the blog to read more text pages."),
+                new MenuPage("My Blog",
+                        new TextPage("A day at the Zoo", "08/12/2020",
+                                "Today I wandered aimlessly around an enclosure of prisoned creatures. It was quite boring.\n\nThat's all."),
+                        new TextPage("Eggs", "09/12/2020",
+                                "This morning I was overcome with the insatiable desire to make eggs for breakfast.\nMiraculously, I was able to make some eggs that did not looks absolutely hideous.")
 
-        AnsiUtils.setCursorPos(30, 3);
+                )
+        );
+
+        mainMenu.callPage();
+
+        AnsiUtils.clearScreen();
+        AnsiUtils.printInBox("Thanks for using EasyMenus!", 2, 1, "Thanks for using EasyMenus!".length());
         AnsiUtils.uninstallConsole();
         Input.closeScanner();
 

@@ -4,6 +4,7 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * ANSI Utilities
@@ -17,18 +18,34 @@ public class AnsiUtils {
 
     ///Basic Formatting Methods ///
 
+    /**
+     * Clears the terminal
+     */
     public static void clearScreen() {
         System.out.println(Ansi.ansi().eraseScreen().cursor(1, 1));
     }
 
+    /**
+     * Sets the cursor position.
+     * @param row Screen row to move to
+     * @param col Screen column to move to
+     */
     public static void setCursorPos(final int row, final int col) {
         System.out.print(Ansi.ansi().cursor(row, col));
     }
 
+    /**
+     * Sets the cursor's colour to the default.
+     */
     public static void resetCursorColour() {
         System.out.print(Ansi.ansi().bgDefault().fgDefault());
     }
 
+    /**
+     * Sets the cursor's colour.
+     * @param fg Foreground colour (Text)
+     * @param bg Background colour
+     */
     public static void setCursorColour(final Colour fg, final Colour bg) {
         if (fg.isBright()) {
             System.out.print(Ansi.ansi().fgDefault().fgBright(fg.getAnsiColour()));
@@ -45,6 +62,12 @@ public class AnsiUtils {
 
     /// Advanced Formatting Methods ///
 
+    /**
+     * Prints a block of text offset from the left side of the screen.
+     * @param str The text to print
+     * @param leftMargin The number of columns to skip before writing
+     * @param topMargin The number of rows to skip before printing
+     */
     public static void printWithMargins(final String str, final int leftMargin, final int topMargin) {
         String[] strs = str.split("\\n");
         setCursorPos(topMargin, leftMargin);
@@ -54,14 +77,29 @@ public class AnsiUtils {
         }
     }
 
+    /**
+     * Prints the given string in an ASCII-art box at the given coordinates.
+     * @param str The string to print
+     * @param x The x-coordinate of the top left corner
+     * @param y The y-coordinate of the top left corner
+     */
     public static void printInBox(final String str, final int x, final int y) {
         printInBox(str, x, y, Constants.DEFAULT_TXT_WIDTH);
     }
 
-    public static void printInBox(final String str, final int x, final int y, final int width) {
+    /**
+     * Prints the given string in an ASCII-art box at the given coordinates
+     * and with a given width.
+     * @param inStr The string to print
+     * @param x The x-coordinate of the top left corner
+     * @param y The y-coordinate of the top left corner
+     * @param width The width of the box
+     */
+    public static void printInBox(final String inStr, final int x, final int y, final int width) {
         // Split text into equal-length strings split on newlines.
         ArrayList<String> lines = new ArrayList<>();
-        String[] words = str.split("\\n|\\s");
+        String str = inStr.replaceAll("\\n", "\n" + Constants.MARKUP_NEWLINE);
+        String[] words = str.split("\\s");
 
         for (String word: words) {
             if (lines.size() == 0){
@@ -70,14 +108,16 @@ public class AnsiUtils {
             }
             // If new word would pass the limit, make a new line
             // otherwise, add the word to the current line
-            int lastLine = lines.size() - 1;
-            if (lines.get(lastLine).length() + word.length() > width
+            int lastLineIndex = lines.size() - 1;
+            if (lines.get(lastLineIndex).length() + word.length() > width
                     || word.length() == 0
+                    || word.contains(Constants.MARKUP_NEWLINE)
             ) {
-                lines.set(lastLine, lines.get(lastLine).trim());
+                if (word.contains(Constants.MARKUP_NEWLINE)) word = word.replace(Constants.MARKUP_NEWLINE, "");
+                lines.set(lastLineIndex, lines.get(lastLineIndex).trim());
                 lines.add(word + " ");
             } else {
-                lines.set(lastLine, lines.get(lastLine) + word + " ");
+                lines.set(lastLineIndex, lines.get(lastLineIndex) + word + " ");
             }
         }
 
@@ -100,10 +140,27 @@ public class AnsiUtils {
         printWithMargins(render, x, y);
     }
 
+    /**
+     * Prints the given string in an ASCII-art box at the given coordinates,
+     * with a title box over the main text box.
+     * @param str String to put in the box
+     * @param title Title to display above the box
+     * @param x X-coordinate of the top left corner
+     * @param y Y-coordinate of the top left corner
+     */
     public static void printInBoxWithTitle(final String str, final String title, final int x, final int y) {
         printInBoxWithTitle(str, title, x, y, Constants.DEFAULT_TXT_WIDTH);
     }
 
+    /**
+     * Prints the given string in an ASCII-art box at the given coordinates
+     * and a given width, with a title box over the main text box.
+     * @param str String to put in the box
+     * @param title Title to display above the box
+     * @param x X-coordinate of the top left corner
+     * @param y Y-coordinate of the top left corner
+     * @param width Width of the box
+     */
     public static void printInBoxWithTitle(final String str, final String title, final int x, final int y, final int width) {
 
         // Check title will fit in title box
