@@ -45,7 +45,7 @@ public class TextPage implements Page {
         );
 
         // Prompt user to return
-        int height = content.split("\\n|\\s").length;
+        int height = content.split("\\n").length + content.length() / Constants.TEXT_PAGE_BOX_WIDTH + 3;
         AnsiUtils.printInBox(Constants.TEXT_PAGE_RETURN_TXT,
                 Constants.TEXT_PAGE_MARGIN_LEFT,
                 height + Constants.TEXT_PAGE_MARGIN_TOP,

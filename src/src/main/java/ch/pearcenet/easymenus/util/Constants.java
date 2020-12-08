@@ -7,7 +7,7 @@ public class Constants {
 
     // Default GUI Settings
     public static final int DEFAULT_TXT_WIDTH = 100;
-    public static final int DEFAULT_INPUT_MARGIN = 3;
+    public static final int DEFAULT_INPUT_MARGIN = 6;
 
     // GUI Character Elements
     public static final char[] DEFAULT_BORDER = {'+', '-', '+', '|', '+', '-', '+', '|'};

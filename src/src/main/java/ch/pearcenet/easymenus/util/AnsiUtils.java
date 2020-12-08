@@ -60,6 +60,25 @@ public class AnsiUtils {
         }
     }
 
+    /**
+     * Moves a cursor relative to its current position.
+     * Positive moves right/down; negative moves left/up.
+     * @param x Number of columns to move left/right
+     * @param y Number of columns to move up/down
+     */
+    public static void moveCursor(int x, int y) {
+        if (x < 0) {
+            System.out.print(Ansi.ansi().cursorLeft(Math.abs(x)));
+        } else {
+            System.out.print(Ansi.ansi().cursorRight(x));
+        }
+        if (y < 0) {
+            System.out.print(Ansi.ansi().cursorUp(Math.abs(y)));
+        } else {
+            System.out.print(Ansi.ansi().cursorDown(y));
+        }
+    }
+
     /// Advanced Formatting Methods ///
 
     /**
