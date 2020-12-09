@@ -17,7 +17,7 @@ public class ScratchTest {
     public static void main(String[] args) {
 
         AnsiUtils.installConsole();
-        Input.openScanner();
+        InputUtils.openScanner();
 
         Page mainMenu = new MenuPage("Test System",
                 new TextPage("Menu Intro", "Hello!\nThanks for using EasyMenus!\n\nThis is a simple text page with some info. Select the blog to read more text pages."),
@@ -35,7 +35,7 @@ public class ScratchTest {
         AnsiUtils.clearScreen();
         AnsiUtils.printInBox("Thanks for using EasyMenus!", 2, 1, "Thanks for using EasyMenus!".length());
         AnsiUtils.uninstallConsole();
-        Input.closeScanner();
+        InputUtils.closeScanner();
 
     }
 

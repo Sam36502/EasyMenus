@@ -13,7 +13,7 @@ public class Colour {
     private Ansi.Color ansiColour;
     private boolean isBright;
 
-    private Colour(Ansi.Color ansiColour, boolean isBright) {
+    private Colour(final Ansi.Color ansiColour, final boolean isBright) {
         this.ansiColour = ansiColour;
         this.isBright = isBright;
     }

@@ -8,6 +8,10 @@ public class Constants {
     // Default GUI Settings
     public static final int DEFAULT_TXT_WIDTH = 100;
     public static final int DEFAULT_INPUT_MARGIN = 6;
+    public static final int DEFAULT_LEFT_MARGIN = 6;
+
+    // Input Settings
+    public static final int DEFAULT_MAX_INPUT_LEN = 5000;
 
     // GUI Character Elements
     public static final char[] DEFAULT_BORDER = {'+', '-', '+', '|', '+', '-', '+', '|'};
@@ -20,8 +24,8 @@ public class Constants {
     public static final int DEFAULT_MENU_OPTS_Y = 7;
 
     // Page Style Constants
-    public static final int TEXT_PAGE_MARGIN_TOP = 1;
-    public static final int TEXT_PAGE_MARGIN_LEFT = 2;
+    public static final int DEFAULT_PAGE_MARGIN_TOP = 1;
+    public static final int DEFAULT_PAGE_MARGIN_LEFT = 2;
     public static final int TEXT_PAGE_BOX_WIDTH = 75;
     public static final String TEXT_PAGE_RETURN_TXT = "Press [ENTER] to go back.";
 

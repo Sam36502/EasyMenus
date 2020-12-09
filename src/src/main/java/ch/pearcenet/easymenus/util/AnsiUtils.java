@@ -82,6 +82,14 @@ public class AnsiUtils {
     /// Advanced Formatting Methods ///
 
     /**
+     * Prints a string with an underline of hyphens
+     * @param str String to be printed
+     */
+    public static void printWithUnderline(final String str) {
+
+    }
+
+    /**
      * Prints a block of text offset from the left side of the screen.
      * @param str The text to print
      * @param leftMargin The number of columns to skip before writing

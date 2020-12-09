@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Handles all kinds of input
  * and validates them.
  */
-public class Input {
+public class InputUtils {
 
     private static Scanner input;
 

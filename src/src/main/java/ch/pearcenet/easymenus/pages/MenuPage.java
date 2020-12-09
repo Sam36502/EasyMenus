@@ -1,6 +1,6 @@
 package ch.pearcenet.easymenus.pages;
 
-import ch.pearcenet.easymenus.Input;
+import ch.pearcenet.easymenus.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 
@@ -68,7 +68,7 @@ public class MenuPage implements Page {
             AnsiUtils.printWithMargins(optionStr, Constants.DEFAULT_MENU_OPTS_X, Constants.DEFAULT_MENU_OPTS_Y);
 
             // Get user's answer and call page's method
-            int chosen = Input.getInt(1, options.size() + 1) - 1;
+            int chosen = InputUtils.getInt(1, options.size() + 1) - 1;
 
             // Check if exit option is chosen
             if (chosen == options.size()) {

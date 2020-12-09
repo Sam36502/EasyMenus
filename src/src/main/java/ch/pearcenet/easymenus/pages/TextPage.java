@@ -1,6 +1,6 @@
 package ch.pearcenet.easymenus.pages;
 
-import ch.pearcenet.easymenus.Input;
+import ch.pearcenet.easymenus.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 
@@ -39,18 +39,18 @@ public class TextPage implements Page {
         // Display Contents
         AnsiUtils.clearScreen();
         AnsiUtils.printInBoxWithTitle(content, title,
-                Constants.TEXT_PAGE_MARGIN_LEFT, // Top Margin
-                Constants.TEXT_PAGE_MARGIN_TOP,  // Left Margin
-                Constants.TEXT_PAGE_BOX_WIDTH    // Box Width
+                Constants.DEFAULT_PAGE_MARGIN_LEFT,
+                Constants.DEFAULT_PAGE_MARGIN_TOP,
+                Constants.TEXT_PAGE_BOX_WIDTH
         );
 
         // Prompt user to return
         int height = content.split("\\n").length + content.length() / Constants.TEXT_PAGE_BOX_WIDTH + 3;
         AnsiUtils.printInBox(Constants.TEXT_PAGE_RETURN_TXT,
-                Constants.TEXT_PAGE_MARGIN_LEFT,
-                height + Constants.TEXT_PAGE_MARGIN_TOP,
+                Constants.DEFAULT_PAGE_MARGIN_LEFT,
+                height + Constants.DEFAULT_PAGE_MARGIN_TOP,
                 Constants.TEXT_PAGE_RETURN_TXT.length()
         );
-        Input.waitForEnter();
+        InputUtils.waitForEnter();
     }
 }
