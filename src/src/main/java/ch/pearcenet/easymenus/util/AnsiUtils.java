@@ -82,15 +82,50 @@ public class AnsiUtils {
     /// Advanced Formatting Methods ///
 
     /**
-     * Prints a string with an underline of hyphens
+     * Renders a string with an underline of hyphens
      * @param str String to be printed
+     * @return The rendered string
      */
-    public static void printWithUnderline(final String str) {
+    public static String renderWithUnderline(final String str) {
+        String render = "";
+        render += " " + str + "\n--";
+        for (int i=0; i<str.length(); i++) { render += "-"; }
+        return render;
+    }
 
+    /**
+     * Renders a string with an underline of given characters
+     * @param str The string to underline
+     * @param leftCap The string to cap the left side of the underline with
+     * @param line The character to use for the underline
+     * @param rightCap The string to cap the right side of the underline with
+     * @return The rendered string
+     */
+    public static String renderWithUnderline(final String str, final String leftCap, final char line, final String rightCap) {
+        String render = "";
+        for (int i=0; i<leftCap.length(); i++) { render += " "; }
+        render += str + "\n" + leftCap;
+        for (int i=0; i<str.length(); i++) { render += line; }
+        render += rightCap;
+        return render;
     }
 
     /**
      * Prints a block of text offset from the left side of the screen.
+     * @param str The text to print
+     * @param leftMargin The number of columns to skip before writing
+     */
+    public static void printWithMargins(final String str, final int leftMargin) {
+        String[] strs = str.split("\\n");
+        System.out.print(Ansi.ansi().cursorToColumn(leftMargin));
+        for (String s: strs) {
+            System.out.print(s);
+            System.out.print(Ansi.ansi().cursorDownLine().cursorToColumn(leftMargin));
+        }
+    }
+
+    /**
+     * Prints a block of text offset from the left and top side of the screen.
      * @param str The text to print
      * @param leftMargin The number of columns to skip before writing
      * @param topMargin The number of rows to skip before printing

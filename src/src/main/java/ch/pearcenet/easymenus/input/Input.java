@@ -1,5 +1,7 @@
 package ch.pearcenet.easymenus.input;
 
+import java.util.Scanner;
+
 /**
  * Input Interface
  * Interface for an input field
@@ -7,8 +9,10 @@ package ch.pearcenet.easymenus.input;
  */
 public interface Input<T> {
 
-    void displayPrompt();
+    void displayPrompt(String title, Scanner input);
 
     T getAnswer();
+
+    String getName();
 
 }

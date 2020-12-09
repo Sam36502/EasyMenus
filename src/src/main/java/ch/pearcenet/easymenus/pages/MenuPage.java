@@ -79,4 +79,10 @@ public class MenuPage implements Page {
             options.get(chosen).callPage();
         }
     }
+
+    // TODO: Remove?
+    public void addOption(Page newPage) {
+        this.options.add(newPage);
+    }
+
 }
