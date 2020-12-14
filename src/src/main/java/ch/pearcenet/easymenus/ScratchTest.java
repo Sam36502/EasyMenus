@@ -1,5 +1,6 @@
 package ch.pearcenet.easymenus;
 
+import ch.pearcenet.easymenus.input.BoolInput;
 import ch.pearcenet.easymenus.input.DoubleInput;
 import ch.pearcenet.easymenus.input.IntInput;
 import ch.pearcenet.easymenus.input.StringInput;
@@ -28,10 +29,7 @@ public class ScratchTest {
                 new InputPage("Contact Form",
                         new StringInput("Name:", 20),
                         new StringInput("Email:", 100, "[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,3}", "john.smith@website.tld"),
-                        new IntInput("Limitless Number:"),
-                        new IntInput("Limited Number:", 1, 6),
-                        new DoubleInput("Decimal Number:"),
-                        new DoubleInput("Limited Decimal:", 1.41, 3.14),
+                        new BoolInput("Why are you gay?"),
                         new StringInput("Message:")
                 )
         );
