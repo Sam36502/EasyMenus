@@ -9,6 +9,7 @@ public class Constants {
     public static final int DEFAULT_TXT_WIDTH = 100;
     public static final int DEFAULT_INPUT_MARGIN = 6;
     public static final int ERROR_MSG_WAIT = 3 * 1000; // 3 Seconds
+    public static final int MAX_ERR_VAR_LENGTH = 10;
 
     // Input Settings
     public static final int DEFAULT_MAX_INPUT_LEN = 5000;

@@ -1,5 +1,8 @@
 package ch.pearcenet.easymenus.input;
 
+import ch.pearcenet.easymenus.util.AnsiUtils;
+import ch.pearcenet.easymenus.util.Constants;
+
 import java.util.Scanner;
 
 /**
@@ -7,12 +10,40 @@ import java.util.Scanner;
  * Interface for an input field
  * to be nested in pages
  */
-public interface Input<T> {
+public class Input<T> {
 
-    void displayPrompt(String title, Scanner input);
+    private String name;
 
-    T getAnswer();
+    private T answer;
 
-    String getName();
+    public Input(String name) {
+        this.name = name;
+        this.answer = null;
+    }
+
+    public void displayPrompt(String title, Scanner input) {
+            AnsiUtils.clearScreen();
+            AnsiUtils.printInBox(title,
+                    Constants.DEFAULT_PAGE_MARGIN_LEFT,
+                    Constants.DEFAULT_PAGE_MARGIN_TOP,
+                    title.length());
+            AnsiUtils.printWithMargins(
+                    "\n" + AnsiUtils.renderWithUnderline(name) + "\n",
+                    Constants.DEFAULT_PAGE_MARGIN_LEFT
+            );
+            System.out.print("  > ");
+    }
+
+    public T getAnswer() {
+        return answer;
+    }
+
+    protected void setAnswer(T answer) {
+        this.answer = answer;
+    }
+
+    public String getName() {
+        return name;
+    }
 
 }

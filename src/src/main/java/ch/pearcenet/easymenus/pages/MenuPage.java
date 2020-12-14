@@ -80,7 +80,6 @@ public class MenuPage implements Page {
         }
     }
 
-    // TODO: Remove?
     public void addOption(Page newPage) {
         this.options.add(newPage);
     }

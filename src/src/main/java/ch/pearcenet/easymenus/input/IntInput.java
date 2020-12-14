@@ -1,52 +1,48 @@
 package ch.pearcenet.easymenus.input;
 
-import ch.pearcenet.easymenus.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 
 import java.util.Scanner;
 
-/**
- * String Input
- * An input field that gets a string and returns it
- */
-public class StringInput extends Input<String> {
+public class IntInput extends Input<Integer> {
 
-    private String regex;
+    private int min;
 
-    private String format;
+    private int max;
 
-    private int maxLength;
-
-    public StringInput(String name) {
-        this(name, Constants.DEFAULT_MAX_INPUT_LEN);
+    public IntInput(String name) {
+        this(name, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    public StringInput(String name, int maxLength) {
-        this(name, maxLength, ".*", "anything");
-    }
-
-    public StringInput(String name, int maxLength, String regex, String format) {
+    public IntInput(String name, int min, int max) {
         super(name);
-        this.regex = regex;
-        this.format = format;
-        this.maxLength = maxLength;
+        this.min = min;
+        this.max = max;
     }
 
     @Override
     public void displayPrompt(String title, Scanner input) {
-        String in = "";
+        int result = 0;
         boolean validAnswer = false;
         while (!validAnswer) {
             validAnswer = true;
 
             super.displayPrompt(title, input);
 
-            in = input.nextLine();
-            if (in.length() > maxLength) {
+            String in = input.nextLine();
+            try {
+                result = Integer.parseInt(in);
+            } catch (NumberFormatException numEx) {
                 validAnswer = false;
+                String errnum = in;
+
+                if (errnum.length() > Constants.MAX_ERR_VAR_LENGTH) {
+                    errnum = errnum.substring(0, errnum.length() - Constants.MAX_ERR_VAR_LENGTH + 3);
+                    errnum += "...";
+                }
                 AnsiUtils.printWithMargins(
-                        "Error: That answer's too long; please keep input within " + maxLength + " characters.",
+                        "Error: '" + errnum + "' is not a valid number.",
                         Constants.DEFAULT_PAGE_MARGIN_LEFT
                 );
                 try { Thread.sleep(Constants.ERROR_MSG_WAIT);
@@ -54,10 +50,10 @@ public class StringInput extends Input<String> {
                 continue;
             }
 
-            if (!in.matches(regex)) {
+            if (result > max || result < min) {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
-                        "Error: That answer doesn't match the required format: '" + format + "'.",
+                        "Error: Number must be within range: (" + min + " - " + max + ")",
                         Constants.DEFAULT_PAGE_MARGIN_LEFT
                 );
                 try { Thread.sleep(Constants.ERROR_MSG_WAIT);
@@ -66,7 +62,7 @@ public class StringInput extends Input<String> {
             }
 
         }
-        setAnswer(in);
+        setAnswer(result);
     }
 
 }

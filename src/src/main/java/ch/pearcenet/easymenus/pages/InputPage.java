@@ -22,13 +22,13 @@ public class InputPage implements Page {
     public InputPage(String title, Input... inputs) {
         this.title = title;
         this.optionName = title;
-        this.inputs = new ArrayList<Input>(Arrays.asList(inputs));
+        this.inputs = new ArrayList<>(Arrays.asList(inputs));
     }
 
     public InputPage(String title, String optionName, Input... inputs) {
         this.title = title;
         this.optionName = optionName;
-        this.inputs = new ArrayList<Input>(Arrays.asList(inputs));
+        this.inputs = new ArrayList<>(Arrays.asList(inputs));
     }
 
     @Override
