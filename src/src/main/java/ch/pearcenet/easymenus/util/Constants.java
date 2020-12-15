@@ -23,6 +23,7 @@ public class Constants {
     public static final int DEFAULT_MENU_TITLE_Y = 3;
     public static final int DEFAULT_MENU_OPTS_X = 6;
     public static final int DEFAULT_MENU_OPTS_Y = 7;
+    public static final String LINE_BREAK_CHARACTERS = " -";
 
     // Page Style Constants
     public static final int DEFAULT_PAGE_MARGIN_TOP = 3;

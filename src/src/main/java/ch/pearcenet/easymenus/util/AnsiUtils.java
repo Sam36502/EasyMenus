@@ -160,27 +160,43 @@ public class AnsiUtils {
     public static void printInBox(final String inStr, final int x, final int y, final int width) {
         // Split text into equal-length strings split on newlines.
         ArrayList<String> lines = new ArrayList<>();
-        String str = inStr.replaceAll("\\n", "\n" + Constants.MARKUP_NEWLINE);
-        String[] words = str.split("\\s");
 
-        for (String word: words) {
-            if (lines.size() == 0){
-                lines.add(word + " ");
-                continue;
+        int ind=0;
+        int lastInd = 0;
+        while (ind <= inStr.length()) {
+
+            if (ind == inStr.length()) {
+                lines.add(inStr.substring(lastInd));
+                break;
             }
-            // If new word would pass the limit, make a new line
-            // otherwise, add the word to the current line
-            int lastLineIndex = lines.size() - 1;
-            if (lines.get(lastLineIndex).length() + word.length() > width
-                    || word.length() == 0
-                    || word.contains(Constants.MARKUP_NEWLINE)
-            ) {
-                if (word.contains(Constants.MARKUP_NEWLINE)) word = word.replace(Constants.MARKUP_NEWLINE, "");
-                lines.set(lastLineIndex, lines.get(lastLineIndex).trim());
-                lines.add(word + " ");
-            } else {
-                lines.set(lastLineIndex, lines.get(lastLineIndex) + word + " ");
+
+            if (ind - lastInd >= width) {
+                int oldInd = ind;
+                boolean foundSplit = true;
+                while (!Constants.LINE_BREAK_CHARACTERS.contains("" + inStr.charAt(ind))) {
+                    ind--;
+                    if (ind == lastInd) {
+                        ind = oldInd;
+                        foundSplit = false;
+                        break;
+                    }
+                }
+                if (foundSplit) {
+                    ind++;
+                    lines.add(inStr.substring(lastInd, ind));
+                    lastInd = ind + 1;
+                } else {
+                    lines.add(inStr.substring(lastInd, ind) + '-');
+                    lastInd = ind;
+                }
             }
+
+            if (inStr.charAt(ind) == '\n') {
+                lines.add(inStr.substring(lastInd, ind));
+                lastInd = ind + 1;
+            }
+
+            ind++;
         }
 
         // Place text in ASCII-art box (Border configuration in Constants)
