@@ -24,6 +24,7 @@ public class Constants {
     public static final int DEFAULT_MENU_OPTS_X = 6;
     public static final int DEFAULT_MENU_OPTS_Y = 7;
     public static final String LINE_BREAK_CHARACTERS = " -";
+    public static final String DEFAULT_EXIT_OPTION_NAME = "Back";
 
     // Page Style Constants
     public static final int DEFAULT_PAGE_MARGIN_TOP = 3;

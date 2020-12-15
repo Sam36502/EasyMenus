@@ -21,15 +21,20 @@ public class MenuPage implements Page {
 
     private ArrayList<Page> options;
 
+    private String exitOptionName;
+
     public MenuPage(String title, Page... options) {
-        this.title = title;
-        this.optionName = title;
-        this.options = new ArrayList<Page>(Arrays.asList(options));
+        this(title, title, options);
     }
 
     public MenuPage(String title, String optionName, Page... options) {
+        this(title, optionName, Constants.DEFAULT_EXIT_OPTION_NAME, options);
+    }
+
+    public MenuPage(String title, String optionName, String exitOptionName, Page... options) {
         this.title = title;
         this.optionName = optionName;
+        this.exitOptionName = exitOptionName;
         this.options = new ArrayList<Page>(Arrays.asList(options));
     }
 
@@ -58,7 +63,7 @@ public class MenuPage implements Page {
             for (int i = 0; i < options.size() + 1; i++) {
                 String opt;
                 if (i == options.size()) {
-                    opt = "Back";
+                    opt = exitOptionName;
                 } else {
                     opt = options.get(i).getOptionName();
                 }

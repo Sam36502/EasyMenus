@@ -184,7 +184,7 @@ public class AnsiUtils {
                 if (foundSplit) {
                     ind++;
                     lines.add(inStr.substring(lastInd, ind));
-                    lastInd = ind + 1;
+                    lastInd = ind;
                 } else {
                     lines.add(inStr.substring(lastInd, ind) + '-');
                     lastInd = ind;

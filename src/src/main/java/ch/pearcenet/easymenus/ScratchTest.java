@@ -25,6 +25,8 @@ public class ScratchTest {
         InputUtils.openScanner();
 
         Page mainMenu = new MenuPage("Test System with a long title",
+                "None",
+                "Exit",
                 new TextPage(
                         "Menu Intro",
                         "Hello!\n" +
@@ -49,6 +51,23 @@ public class ScratchTest {
                                 "Now-a-test-of-breaking-on-hyphens.-I'm-still-not-sure-how-long-this-needs-to-be-ughhh.\n" +
                                 "\n" +
                                 "Nowthisisunbreakablebecausetherearenospacesorhyphensinit.Whatwillthealgorithmdo?Iwonder...\n"
+                ),
+                new MenuPage(
+                        "Secret Blog",
+                        "Very Buggy; don't click",
+                        new TextPage(
+                                "Day 1",
+                                "Today, I didn't do very much."
+                        ),
+                        new TextPage(
+                                "Day 2 - Dev time!",
+                                "Day 2",
+                                "After school today, I decided to do some programming and managed to fix a " +
+                                        "particularly annoying bug while simultaneously cleaning up some code that had " +
+                                        "been bothering me.\n" +
+                                        "\n" +
+                                        "I'd say today went well, but I've got work tomorrow..."
+                        )
                 )
         );
         mainMenu.callPage();
