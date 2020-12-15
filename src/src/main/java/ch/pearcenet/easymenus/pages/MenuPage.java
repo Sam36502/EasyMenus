@@ -47,10 +47,12 @@ public class MenuPage implements Page {
 
             // Fit title into title box
             String newtitle = title;
-            if (title.length() > Constants.DEFAULT_MENU_TITLE_WIDTH) {
-                newtitle = newtitle.substring(0, Constants.DEFAULT_MENU_TITLE_WIDTH - 3) + "...";
+            int titleLen = newtitle.length();
+            if (title.length() > Constants.MENU_TITLE_MAX_WIDTH) {
+                newtitle = newtitle.substring(0, Constants.MENU_TITLE_MAX_WIDTH - 3) + "...";
+                titleLen = Constants.MENU_TITLE_MAX_WIDTH;
             }
-            AnsiUtils.printInBox(newtitle, Constants.DEFAULT_MENU_TITLE_X, Constants.DEFAULT_MENU_TITLE_Y, Constants.DEFAULT_MENU_TITLE_WIDTH);
+            AnsiUtils.printInBox(newtitle, Constants.DEFAULT_MENU_TITLE_X, Constants.DEFAULT_MENU_TITLE_Y, titleLen);
 
             String optionStr = "";
             for (int i = 0; i < options.size() + 1; i++) {

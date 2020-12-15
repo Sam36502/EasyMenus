@@ -24,7 +24,7 @@ public class ScratchTest {
         AnsiUtils.installConsole();
         InputUtils.openScanner();
 
-        Page mainMenu = new MenuPage("Test System",
+        Page mainMenu = new MenuPage("Test System with an long title",
                 new TextPage("Menu Intro", "Hello!\nThanks for using EasyMenus!\n\nThis is a simple text page with some info. Select the blog to read more text pages."),
                 new InputPage("Contact Form",
                         new StringInput("Name:", 20),
