@@ -51,7 +51,7 @@ public class ScratchTest {
                 ),
                 new MenuPage(
                         "Secret Blog",
-                        "Very Buggy; don't click",
+                        "<WIP BUGGY DON'T SELECT>",
                         new TextPage(
                                 "Day 1",
                                 "Today, I didn't do very much."

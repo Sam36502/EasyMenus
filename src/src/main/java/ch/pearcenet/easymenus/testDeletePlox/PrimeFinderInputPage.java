@@ -26,7 +26,10 @@ public class PrimeFinderInputPage extends InputPage {
         LoadedPage next = new PrimeFinderPage(maxPrimeIn.getAnswer());
         LoadingPage load = new LoadingPage(
                 "Computing Primes:",
-                "Computing...",
+                "Computing...\n" +
+                        "\n" +
+                        "Fun fact: Primes are kinda weird.\n" +
+                        "That's it. They just don't really make sense.",
                 next,
                 maxPrimeIn.getAnswer()
         );

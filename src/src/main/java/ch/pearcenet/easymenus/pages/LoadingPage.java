@@ -79,7 +79,7 @@ public class LoadingPage implements Page {
 
         // Render Contents
         String render = "";
-        for (int i=0; i<Constants.LOADING_BAR_MARGIN_TOP + 2; i++) {
+        for (int i=0; i<Constants.LOADING_BAR_MARGIN_TOP + Constants.TITLE_CONTENT_GAP + 1; i++) {
             render += "\n";
         }
         render += content;
@@ -96,9 +96,13 @@ public class LoadingPage implements Page {
         AnsiUtils.printInBox(
                 loadingBar,
                 Constants.DEFAULT_PAGE_MARGIN_LEFT + Constants.LOADING_BAR_MARGIN_SIDES + 1,
-                Constants.DEFAULT_PAGE_MARGIN_TOP + Constants.LOADING_BAR_MARGIN_TOP + 1,
+                Constants.DEFAULT_PAGE_MARGIN_TOP
+                        + Constants.LOADING_BAR_MARGIN_TOP + 2
+                        + Constants.TITLE_CONTENT_GAP,
                 length
         );
+
+        AnsiUtils.moveCursor(0, content.split("\n").length + 1 + Constants.CONTENT_PROMPT_GAP);
     }
 
     @Override
@@ -113,13 +117,9 @@ public class LoadingPage implements Page {
 
         // Prompt user to continue if tasks are loaded
         if (tasksCompleted == numTasks) {
-            int height = Constants.LOADING_BAR_MARGIN_TOP + 3
-                    + content.split("\\n").length
-                    + content.length() / Constants.TEXT_PAGE_BOX_WIDTH
-                    + 3;
+            AnsiUtils.moveCursor(0, Constants.CONTENT_PROMPT_GAP);
             AnsiUtils.printInBox(Constants.LOADING_COMPLETE_MSG,
                     Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                    height + Constants.DEFAULT_PAGE_MARGIN_TOP,
                     Constants.LOADING_COMPLETE_MSG.length()
             );
             InputUtils.waitForEnter();

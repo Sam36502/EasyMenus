@@ -45,6 +45,8 @@ public class TextPage implements LoadedPage {
         return content;
     }
 
+
+
     @Override
     public String getOptionName() {
         return optionName;
@@ -60,11 +62,9 @@ public class TextPage implements LoadedPage {
                 Constants.TEXT_PAGE_BOX_WIDTH
         );
 
-        // Prompt user to return
-        int height = content.split("\\n").length + content.length() / Constants.TEXT_PAGE_BOX_WIDTH + 3;
+        AnsiUtils.moveCursor(0, Constants.CONTENT_PROMPT_GAP);
         AnsiUtils.printInBox(Constants.TEXT_PAGE_RETURN_TXT,
                 Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                height + Constants.DEFAULT_PAGE_MARGIN_TOP,
                 Constants.TEXT_PAGE_RETURN_TXT.length()
         );
         InputUtils.waitForEnter();

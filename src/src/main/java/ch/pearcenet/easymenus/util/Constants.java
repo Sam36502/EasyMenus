@@ -34,6 +34,8 @@ public class Constants {
     public static final char LOADING_BAR_CHARACTER = '#';
 
     // Page Style Constants
+    public static final int TITLE_CONTENT_GAP = 1;
+    public static final int CONTENT_PROMPT_GAP = 1;
     public static final int DEFAULT_PAGE_MARGIN_TOP = 3;
     public static final int DEFAULT_PAGE_MARGIN_LEFT = 6;
     public static final int TEXT_PAGE_BOX_WIDTH = 75;
