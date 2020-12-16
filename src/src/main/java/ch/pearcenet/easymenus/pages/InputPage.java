@@ -1,6 +1,5 @@
 package ch.pearcenet.easymenus.pages;
 
-import ch.pearcenet.easymenus.InputUtils;
 import ch.pearcenet.easymenus.input.Input;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class InputPage implements Page {
+public class InputPage implements LoadedPage {
 
     private Scanner input = new Scanner(System.in);
 
@@ -70,5 +69,10 @@ public class InputPage implements Page {
     //TODO: Remove?
     public ArrayList<Input> getInputs() {
         return inputs;
+    }
+
+    @Override
+    public void load(LoadingPage loadingPage) {
+        loadingPage.completeAll();
     }
 }

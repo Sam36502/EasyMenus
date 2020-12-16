@@ -14,7 +14,7 @@ task testJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Test JAR File',
                 'Implementation-Version': version,
-                'Main-Class': 'ch.pearcenet.easymenus.ScratchTest'
+                'Main-Class': 'ch.pearcenet.easymenus.testDeletePlox.ScratchTest'
     }
     baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

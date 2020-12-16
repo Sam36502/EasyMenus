@@ -1,6 +1,6 @@
 package ch.pearcenet.easymenus.pages;
 
-import ch.pearcenet.easymenus.InputUtils;
+import ch.pearcenet.easymenus.util.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 
@@ -9,7 +9,7 @@ import ch.pearcenet.easymenus.util.Constants;
  * A Page that simply displays some content text and
  * allows the option to return to the previous page.
  */
-public class TextPage implements Page {
+public class TextPage implements LoadedPage {
 
     private String title;
 
@@ -17,16 +17,32 @@ public class TextPage implements Page {
 
     private String content;
 
+    public TextPage(String title, String content) {
+        this(title, title, content);
+    }
+
     public TextPage(String title, String optionName, String content) {
         this.title = title;
         this.optionName = optionName;
         this.content = content;
     }
 
-    public TextPage(String title, String content) {
+    public TextPage setTitle(String title) {
         this.title = title;
-        this.optionName = title;
+        return this;
+    }
+
+    public TextPage setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     @Override
@@ -52,5 +68,10 @@ public class TextPage implements Page {
                 Constants.TEXT_PAGE_RETURN_TXT.length()
         );
         InputUtils.waitForEnter();
+    }
+
+    @Override
+    public void load(LoadingPage loadingPage) {
+        loadingPage.completeAll();
     }
 }

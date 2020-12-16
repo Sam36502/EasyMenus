@@ -1,6 +1,5 @@
 package ch.pearcenet.easymenus.input;
 
-import ch.pearcenet.easymenus.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 

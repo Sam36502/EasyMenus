@@ -1,4 +1,4 @@
-package ch.pearcenet.easymenus;
+package ch.pearcenet.easymenus.util;
 
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;

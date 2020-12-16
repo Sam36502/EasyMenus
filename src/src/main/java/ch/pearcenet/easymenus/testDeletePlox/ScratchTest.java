@@ -1,13 +1,10 @@
-package ch.pearcenet.easymenus;
+package ch.pearcenet.easymenus.testDeletePlox;
 
+import ch.pearcenet.easymenus.util.InputUtils;
 import ch.pearcenet.easymenus.input.BoolInput;
-import ch.pearcenet.easymenus.input.DoubleInput;
-import ch.pearcenet.easymenus.input.IntInput;
 import ch.pearcenet.easymenus.input.StringInput;
 import ch.pearcenet.easymenus.pages.*;
 import ch.pearcenet.easymenus.util.AnsiUtils;
-
-import java.util.ArrayList;
 
 public class ScratchTest {
 
@@ -68,7 +65,8 @@ public class ScratchTest {
                                         "\n" +
                                         "I'd say today went well, but I've got work tomorrow..."
                         )
-                )
+                ),
+                new PrimeFinderInputPage()
         );
         mainMenu.callPage();
 

@@ -26,6 +26,13 @@ public class Constants {
     public static final String LINE_BREAK_CHARACTERS = " -";
     public static final String DEFAULT_EXIT_OPTION_NAME = "Back";
 
+    // Loading Options
+    public static final String DEFAULT_LOADING_MSG = "Loading...";
+    public static final String LOADING_COMPLETE_MSG = "Press [ENTER] to continue.";
+    public static final int LOADING_BAR_MARGIN_TOP = 3;
+    public static final int LOADING_BAR_MARGIN_SIDES = 6;
+    public static final char LOADING_BAR_CHARACTER = '#';
+
     // Page Style Constants
     public static final int DEFAULT_PAGE_MARGIN_TOP = 3;
     public static final int DEFAULT_PAGE_MARGIN_LEFT = 6;

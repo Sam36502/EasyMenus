@@ -1,6 +1,6 @@
 package ch.pearcenet.easymenus.pages;
 
-import ch.pearcenet.easymenus.InputUtils;
+import ch.pearcenet.easymenus.util.InputUtils;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
 
@@ -13,7 +13,7 @@ import java.util.Arrays;
  * options and to redirect the user to
  * some code or another Page
  */
-public class MenuPage implements Page {
+public class MenuPage implements LoadedPage {
 
     private String title;
 
@@ -87,8 +87,21 @@ public class MenuPage implements Page {
         }
     }
 
-    public void addOption(Page newPage) {
-        this.options.add(newPage);
+    public ArrayList<Page> getOptions() {
+        return options;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public MenuPage setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    @Override
+    public void load(LoadingPage loadingPage) {
+        loadingPage.completeAll();
+    }
 }
