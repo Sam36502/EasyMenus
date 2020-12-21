@@ -1,7 +1,5 @@
 package ch.pearcenet.easymenus.testDeletePlox;
 
-import ch.pearcenet.easymenus.input.IntInput;
-import ch.pearcenet.easymenus.pages.InputPage;
 import ch.pearcenet.easymenus.pages.LoadingPage;
 import ch.pearcenet.easymenus.pages.TextPage;
 
@@ -28,7 +26,7 @@ public class PrimeFinderPage extends TextPage {
 
     @Override
     public void load(LoadingPage loadingPage) {
-        for (int i=0; i<maxPrime; i++) {
+        for (int i=3; i<maxPrime; i++) {
             if (isPrime(i)) {
                 setContent(getContent() + ", " + i);
                 loadingPage.taskDone();

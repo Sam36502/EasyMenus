@@ -3,8 +3,12 @@ package ch.pearcenet.easymenus.util;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * ANSI Utilities
@@ -12,11 +16,72 @@ import java.util.Arrays;
  */
 public class AnsiUtils {
 
-    /// AnsiConsole Un-/Install ///
+    /// Setup Methods ///
+
+    /**
+     * Installs the ANSI console onto standard out.
+     */
     public static void installConsole() { AnsiConsole.systemInstall(); }
+
+    /**
+     * Uninstalls the ANSI console from standard out.
+     */
     public static void uninstallConsole() { AnsiConsole.systemUninstall(); }
 
-    ///Basic Formatting Methods ///
+    /**
+     * Loads console style settings from a file.
+     * @param filename The file to load settings from
+     */
+    public static void loadStyleFile(final String filename) {
+        STYLE_SETTINGS = new Properties();
+        try {
+            InputStream is = new FileInputStream(filename);
+            STYLE_SETTINGS.load(is);
+        } catch (IOException e) {
+            // TODO: Competent Error-Handling
+            System.out.println("Error: Unable to load settings from file: '" + filename + "'");
+            System.exit(1);
+        }
+    }
+
+    /// Settings Methods ///
+
+    private static Properties STYLE_SETTINGS;
+
+    /**
+     * Gets a string from the settings map.
+     * @param key The key of the requested string
+     * @return The requested string
+     */
+    public static String getSettingsString(String key) {
+
+        if (!STYLE_SETTINGS.containsKey(key)) {
+            // TODO: Competent Error-Handling
+            System.out.println("Error: Invalid Key requested from STYLE_SETTINGS: '" + key + "'");
+            System.exit(1);
+        }
+
+        return STYLE_SETTINGS.getProperty(key);
+    }
+
+    /**
+     * Gets an integer from the settings map.
+     * @param key The key of the requested integer
+     * @return The requested integer
+     */
+    public static int getSettingsInt(String key) {
+        int i = 0;
+        try {
+            i = Integer.parseInt(getSettingsString(key));
+        } catch (NumberFormatException e) {
+            // TODO: Competent Error-Handling
+            System.out.println("Error: Attempted to get non-integer value from STYLE_SETTINGS: '" + key + "' is actually: '" + getSettingsString(key) + "'");
+            System.exit(1);
+        }
+        return i;
+    }
+
+    /// Basic Formatting Methods ///
 
     /**
      * Clears the terminal
