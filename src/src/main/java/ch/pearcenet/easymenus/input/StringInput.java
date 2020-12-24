@@ -46,9 +46,9 @@ public class StringInput extends Input<String> {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
                         "Error: That answer's too long; please keep input within " + maxLength + " characters.",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
-                try { Thread.sleep(Constants.ERROR_MSG_WAIT);
+                try { Thread.sleep(Constants.ERROR_MSG_DISPLAY_TIME);
                 } catch (InterruptedException e) { e.printStackTrace(); }
                 continue;
             }
@@ -57,9 +57,9 @@ public class StringInput extends Input<String> {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
                         "Error: That answer doesn't match the required format: '" + format + "'.",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
-                try { Thread.sleep(Constants.ERROR_MSG_WAIT);
+                try { Thread.sleep(Constants.ERROR_MSG_DISPLAY_TIME);
                 } catch (InterruptedException e) { e.printStackTrace(); }
                 continue;
             }

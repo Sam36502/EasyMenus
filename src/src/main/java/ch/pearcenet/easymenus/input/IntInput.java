@@ -37,15 +37,15 @@ public class IntInput extends Input<Integer> {
                 validAnswer = false;
                 String errnum = in;
 
-                if (errnum.length() > Constants.MAX_ERR_VAR_LENGTH) {
-                    errnum = errnum.substring(0, errnum.length() - Constants.MAX_ERR_VAR_LENGTH + 3);
+                if (errnum.length() > Constants.MAX_ERR_MSG_LENGTH) {
+                    errnum = errnum.substring(0, errnum.length() - Constants.MAX_ERR_MSG_LENGTH + 3);
                     errnum += "...";
                 }
                 AnsiUtils.printWithMargins(
                         "Error: '" + errnum + "' is not a valid number.",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
-                try { Thread.sleep(Constants.ERROR_MSG_WAIT);
+                try { Thread.sleep(Constants.ERROR_MSG_DISPLAY_TIME);
                 } catch (InterruptedException e) { e.printStackTrace(); }
                 continue;
             }
@@ -54,9 +54,9 @@ public class IntInput extends Input<Integer> {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
                         "Error: Number must be within range: (" + min + " - " + max + ")",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
-                try { Thread.sleep(Constants.ERROR_MSG_WAIT);
+                try { Thread.sleep(Constants.ERROR_MSG_DISPLAY_TIME);
                 } catch (InterruptedException e) { e.printStackTrace(); }
                 continue;
             }

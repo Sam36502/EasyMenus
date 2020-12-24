@@ -20,6 +20,7 @@ public class ScratchTest {
 
         AnsiUtils.installConsole();
         InputUtils.openScanner();
+        AnsiUtils.loadStyleFile(".\\default_style.txt");
 
         Page mainMenu = new MenuPage("Test System with a long title",
                 "None",

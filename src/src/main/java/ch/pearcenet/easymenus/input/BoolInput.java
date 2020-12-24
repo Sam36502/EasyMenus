@@ -30,9 +30,9 @@ public class BoolInput extends Input<Boolean> {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
                         "Error: Input must be one of the following (case insensitive): (y, yes, n, no)",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
-                try { Thread.sleep(Constants.ERROR_MSG_WAIT);
+                try { Thread.sleep(Constants.ERROR_MSG_DISPLAY_TIME);
                 } catch (InterruptedException e) { e.printStackTrace(); }
                 continue;
             }

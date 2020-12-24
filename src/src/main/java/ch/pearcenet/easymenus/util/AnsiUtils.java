@@ -4,7 +4,6 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,6 +40,8 @@ public class AnsiUtils {
             // TODO: Competent Error-Handling
             System.out.println("Error: Unable to load settings from file: '" + filename + "'");
             System.exit(1);
+
+            //TODO: Fall-back on default map
         }
     }
 
@@ -48,12 +49,41 @@ public class AnsiUtils {
 
     private static Properties STYLE_SETTINGS;
 
+    public static void loadDefaultStyle() {
+        STYLE_SETTINGS = new Properties();
+        STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "+-+|+-+|");
+
+        STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_DEF_WIDTH, "100");
+        STYLE_SETTINGS.put(Constants.LAYOUT_TITLE_CONTENT_GAP, "1");
+        STYLE_SETTINGS.put(Constants.LAYOUT_CONTENT_PROMPT_GAP, "1");
+        STYLE_SETTINGS.put(Constants.LAYOUT_LOAD_MARGIN_SIDE, "6");
+        STYLE_SETTINGS.put(Constants.LAYOUT_LOAD_MARGIN_TOP, "3");
+        STYLE_SETTINGS.put(Constants.LAYOUT_PAGE_MARGIN_LEFT, "6");
+        STYLE_SETTINGS.put(Constants.LAYOUT_PAGE_MARGIN_TOP, "3");
+        STYLE_SETTINGS.put(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH, "50");
+        STYLE_SETTINGS.put(Constants.LAYOUT_INPUT_MARGIN_LEFT, "6");
+
+        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
+        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "#");
+        STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");
+        STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_BACK, "Press [ENTER] to go back.");
+        STYLE_SETTINGS.put(Constants.STRINGS_DEF_EXIT_MSG, "Back");
+    }
+
     /**
      * Gets a string from the settings map.
      * @param key The key of the requested string
      * @return The requested string
      */
     public static String getSettingsString(String key) {
+
+        if (STYLE_SETTINGS == null) {
+            AnsiUtils.clearScreen();
+            System.out.println("Error: No style settings loaded.\n" +
+                    "       Try adding `AnsiUtils.loadDefaultStyle();` to your main,\n" +
+                    "       or check if your style file is being loaded correctly.\n\n");
+            System.exit(1);
+        }
 
         if (!STYLE_SETTINGS.containsKey(key)) {
             // TODO: Competent Error-Handling
@@ -228,7 +258,7 @@ public class AnsiUtils {
             if (ind - lastInd >= width) {
                 int oldInd = ind;
                 boolean foundSplit = true;
-                while (!Constants.LINE_BREAK_CHARACTERS.contains("" + inStr.charAt(ind))) {
+                while (!getSettingsString(Constants.LINE_BREAK_CHARACTERS).contains("" + inStr.charAt(ind))) {
                     ind--;
                     if (ind == lastInd) {
                         ind = oldInd;
@@ -256,19 +286,19 @@ public class AnsiUtils {
 
         // Place text in ASCII-art box (Border configuration in Constants)
         String render = "";
-        render += Constants.DEFAULT_BORDER[0];
-        for (int i=0; i<width + 2; i++) render += Constants.DEFAULT_BORDER[1];
-        render += Constants.DEFAULT_BORDER[2] + "\n";
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
+        for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(1);
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(2) + "\n";
 
         for (String line: lines) {
-            render += Constants.DEFAULT_BORDER[7] + " " + line;
+            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + " " + line;
             for (int i=0; i<width - line.length() + 1; i++) render += " ";
-            render += Constants.DEFAULT_BORDER[3] + "\n";
+            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
-        render += Constants.DEFAULT_BORDER[6];
-        for (int i=0; i<width + 2; i++) render += Constants.DEFAULT_BORDER[5];
-        render += Constants.DEFAULT_BORDER[4];
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(6);
+        for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(5);
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(4);
 
         printWithMargins(render, leftMargin, topMargin);
     }
@@ -324,19 +354,19 @@ public class AnsiUtils {
 
         // Place text in ASCII-art box (Border configuration in Constants)
         String render = "";
-        render += Constants.DEFAULT_BORDER[0];
-        for (int i=0; i<width + 2; i++) render += Constants.DEFAULT_BORDER[1];
-        render += Constants.DEFAULT_BORDER[2] + "\n";
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
+        for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(1);
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(2) + "\n";
 
         for (String line: lines) {
-            render += Constants.DEFAULT_BORDER[7] + " " + line;
+            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + " " + line;
             for (int i=0; i<width - line.length() + 1; i++) render += " ";
-            render += Constants.DEFAULT_BORDER[3] + "\n";
+            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
-        render += Constants.DEFAULT_BORDER[6];
-        for (int i=0; i<width + 2; i++) render += Constants.DEFAULT_BORDER[5];
-        render += Constants.DEFAULT_BORDER[4];
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(6);
+        for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(5);
+        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(4);
 
         printWithMargins(render, leftMargin);
     }
@@ -350,7 +380,7 @@ public class AnsiUtils {
      * @param topMargin The top margin of the box
      */
     public static void printInBoxWithTitle(final String str, final String title, final int leftMargin, final int topMargin) {
-        printInBoxWithTitle(str, title, leftMargin, topMargin, Constants.DEFAULT_TXT_WIDTH);
+        printInBoxWithTitle(str, title, leftMargin, topMargin, getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH));
     }
 
     /**
@@ -366,13 +396,12 @@ public class AnsiUtils {
 
         // Check title will fit in title box
         String newtitle = title;
-        int titleWidth = width / 2;
-        if (title.length() > titleWidth) {
-            newtitle = newtitle.substring(0, titleWidth - 3) + "...";
+        if (title.length() > width) {
+            newtitle = newtitle.substring(0, width - 3) + "...";
         }
 
-        printInBox(newtitle, leftMargin, topMargin, titleWidth);
-        for (int i=0; i<Constants.TITLE_CONTENT_GAP; i++) { System.out.print("\n"); }
+        printInBox(newtitle, leftMargin, topMargin, width);
+        for (int i = 0; i<getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP); i++) { System.out.print("\n"); }
         printInBox(str, leftMargin, width);
     }
 

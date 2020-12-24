@@ -27,7 +27,7 @@ public class LoadingPage implements Page {
     private int prevNumChars = 0;
 
     public LoadingPage(String title, LoadedPage nextPage, int numTasks) {
-        this(title, title, Constants.DEFAULT_LOADING_MSG, nextPage, numTasks);
+        this(title, title, AnsiUtils.getSettingsString(Constants.STRINGS_LOADING_DEF_MSG), nextPage, numTasks);
     }
 
     public LoadingPage(String title, String content, LoadedPage nextPage, int numTasks) {
@@ -70,7 +70,9 @@ public class LoadingPage implements Page {
 
     private void drawScreen() {
         String loadingBar = "";
-        int length = Constants.TEXT_PAGE_BOX_WIDTH - (2 * Constants.LOADING_BAR_MARGIN_SIDES) - 2;
+        int length = AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
+                - (2 * AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_SIDE))
+                - 2;
         int numChars = (int) Math.round(((double) tasksCompleted / (double) numTasks) * (double) length);
         if (numChars == prevNumChars) {
             return;
@@ -79,7 +81,12 @@ public class LoadingPage implements Page {
 
         // Render Contents
         String render = "";
-        for (int i=0; i<Constants.LOADING_BAR_MARGIN_TOP + Constants.TITLE_CONTENT_GAP + 1; i++) {
+        for (
+                int i = 0;
+                i<AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_TOP)
+                        + AnsiUtils.getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP) + 1;
+                i++) {
+
             render += "\n";
         }
         render += content;
@@ -87,22 +94,29 @@ public class LoadingPage implements Page {
         // Display Contents
         AnsiUtils.clearScreen();
         AnsiUtils.printInBoxWithTitle(render, title,
-                Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                Constants.DEFAULT_PAGE_MARGIN_TOP,
-                Constants.TEXT_PAGE_BOX_WIDTH
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
         );
 
-        for (int i=0; i<numChars; i++) { loadingBar += Constants.LOADING_BAR_CHARACTER; }
+        while (loadingBar.length() < numChars) {
+            loadingBar += AnsiUtils.getSettingsString(Constants.STRINGS_LOADING_BAR_CHAR);
+        }
+        loadingBar = loadingBar.substring(0, numChars);
         AnsiUtils.printInBox(
                 loadingBar,
-                Constants.DEFAULT_PAGE_MARGIN_LEFT + Constants.LOADING_BAR_MARGIN_SIDES + 1,
-                Constants.DEFAULT_PAGE_MARGIN_TOP
-                        + Constants.LOADING_BAR_MARGIN_TOP + 2
-                        + Constants.TITLE_CONTENT_GAP,
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
+                        + AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_SIDE) + 1,
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP)
+                        + AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_TOP) + 2
+                        + AnsiUtils.getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP),
                 length
         );
 
-        AnsiUtils.moveCursor(0, content.split("\n").length + 1 + Constants.CONTENT_PROMPT_GAP);
+        AnsiUtils.moveCursor(0,
+                content.split("\n").length
+                + 1
+                + AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
     }
 
     @Override
@@ -117,10 +131,10 @@ public class LoadingPage implements Page {
 
         // Prompt user to continue if tasks are loaded
         if (tasksCompleted == numTasks) {
-            AnsiUtils.moveCursor(0, Constants.CONTENT_PROMPT_GAP);
-            AnsiUtils.printInBox(Constants.LOADING_COMPLETE_MSG,
-                    Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                    Constants.LOADING_COMPLETE_MSG.length()
+            AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
+            AnsiUtils.printInBox(AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_CONTINUE),
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                    AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_CONTINUE).length()
             );
             InputUtils.waitForEnter();
             resetProgress();

@@ -30,7 +30,9 @@ public class InputUtils {
      * @return The string the user entered
      */
     public static String getString() {
-        System.out.print(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "> ");
+        System.out.print(
+                Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                        + "> ");
         return input.nextLine();
     }
 
@@ -51,7 +53,9 @@ public class InputUtils {
                 i = Integer.parseInt(in);
             } catch (NumberFormatException ex) {
                 isValid = false;
-                System.out.println(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "ERROR: Invalid number");
+                System.out.println(
+                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                                + "ERROR: Invalid number");
                 in = getString();
             }
         }
@@ -75,7 +79,9 @@ public class InputUtils {
 
             if (i < min || i > max) {
                 isValid = false;
-                System.out.println(Ansi.ansi().cursorToColumn(Constants.DEFAULT_INPUT_MARGIN) + "ERROR: Number out range");
+                System.out.println(
+                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                                + "ERROR: Number out range");
                 i = getInt();
             }
         }

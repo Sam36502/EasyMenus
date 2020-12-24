@@ -44,20 +44,20 @@ public class InputPage implements LoadedPage {
             }
             AnsiUtils.clearScreen();
             AnsiUtils.printInBox(title,
-                    Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                    Constants.DEFAULT_PAGE_MARGIN_TOP,
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
                     title.length());
 
             for (Input field : inputs) {
                 AnsiUtils.printWithMargins(
                         "\n" + AnsiUtils.renderWithUnderline(field.getName()) + "\n",
-                        Constants.DEFAULT_PAGE_MARGIN_LEFT
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
                 );
                 System.out.println("  > " + field.getAnswer());
             }
 
             // Confirm Inputs
-            AnsiUtils.printWithMargins("\nIs this correct? (y/n)\n", Constants.DEFAULT_PAGE_MARGIN_LEFT);
+            AnsiUtils.printWithMargins("\nIs this correct? (y/n)\n", AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT));
             System.out.print("  > ");
             String in = input.nextLine();
             if ("y".equals(in) || "yes".equals(in)) {

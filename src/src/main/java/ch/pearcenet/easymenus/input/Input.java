@@ -24,12 +24,12 @@ public class Input<T> {
     public void displayPrompt(String title, Scanner input) {
             AnsiUtils.clearScreen();
             AnsiUtils.printInBox(title,
-                    Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                    Constants.DEFAULT_PAGE_MARGIN_TOP,
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
                     title.length());
             AnsiUtils.printWithMargins(
                     "\n" + AnsiUtils.renderWithUnderline(name) + "\n",
-                    Constants.DEFAULT_PAGE_MARGIN_LEFT
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
             );
             System.out.print("  > ");
     }

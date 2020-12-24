@@ -57,15 +57,15 @@ public class TextPage implements LoadedPage {
         // Display Contents
         AnsiUtils.clearScreen();
         AnsiUtils.printInBoxWithTitle(content, title,
-                Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                Constants.DEFAULT_PAGE_MARGIN_TOP,
-                Constants.TEXT_PAGE_BOX_WIDTH
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
         );
 
-        AnsiUtils.moveCursor(0, Constants.CONTENT_PROMPT_GAP);
-        AnsiUtils.printInBox(Constants.TEXT_PAGE_RETURN_TXT,
-                Constants.DEFAULT_PAGE_MARGIN_LEFT,
-                Constants.TEXT_PAGE_RETURN_TXT.length()
+        AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
+        AnsiUtils.printInBox(AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK),
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK).length()
         );
         InputUtils.waitForEnter();
     }

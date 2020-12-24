@@ -28,14 +28,14 @@ public class MenuPage implements LoadedPage {
     }
 
     public MenuPage(String title, String optionName, Page... options) {
-        this(title, optionName, Constants.DEFAULT_EXIT_OPTION_NAME, options);
+        this(title, optionName, AnsiUtils.getSettingsString(Constants.STRINGS_DEF_EXIT_MSG), options);
     }
 
     public MenuPage(String title, String optionName, String exitOptionName, Page... options) {
         this.title = title;
         this.optionName = optionName;
         this.exitOptionName = exitOptionName;
-        this.options = new ArrayList<Page>(Arrays.asList(options));
+        this.options = new ArrayList<>(Arrays.asList(options));
     }
 
     @Override
@@ -53,11 +53,18 @@ public class MenuPage implements LoadedPage {
             // Fit title into title box
             String newtitle = title;
             int titleLen = newtitle.length();
-            if (title.length() > Constants.MENU_TITLE_MAX_WIDTH) {
-                newtitle = newtitle.substring(0, Constants.MENU_TITLE_MAX_WIDTH - 3) + "...";
-                titleLen = Constants.MENU_TITLE_MAX_WIDTH;
+            if (title.length() > AnsiUtils.getSettingsInt(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH)) {
+                newtitle = newtitle.substring(
+                        0,
+                        AnsiUtils.getSettingsInt(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH) - 3)
+                        + "...";
+                titleLen = AnsiUtils.getSettingsInt(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH);
             }
-            AnsiUtils.printInBox(newtitle, Constants.DEFAULT_MENU_TITLE_X, Constants.DEFAULT_MENU_TITLE_Y, titleLen);
+            AnsiUtils.printInBox(
+                    newtitle,
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
+                    titleLen);
 
             String optionStr = "";
             for (int i = 0; i < options.size() + 1; i++) {
@@ -72,7 +79,12 @@ public class MenuPage implements LoadedPage {
             }
 
             optionStr += "\n(Enter option number and press enter)\n";
-            AnsiUtils.printWithMargins(optionStr, Constants.DEFAULT_MENU_OPTS_X, Constants.DEFAULT_MENU_OPTS_Y);
+            AnsiUtils.printWithMargins(
+                    optionStr,
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP)
+                            + 3
+                            + AnsiUtils.getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP));
 
             // Get user's answer and call page's method
             int chosen = InputUtils.getInt(1, options.size() + 1) - 1;

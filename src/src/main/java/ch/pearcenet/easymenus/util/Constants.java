@@ -1,47 +1,35 @@
 package ch.pearcenet.easymenus.util;
 
+import java.util.Properties;
+
 /**
  * Default Constants
  */
 public class Constants {
 
-    // Default GUI Settings
-    public static final int DEFAULT_TXT_WIDTH = 100;
-    public static final int DEFAULT_INPUT_MARGIN = 6;
-    public static final int ERROR_MSG_WAIT = 3 * 1000; // 3 Seconds
-    public static final int MAX_ERR_VAR_LENGTH = 10;
-
-    // Input Settings
+    // Non-Settings Constants:
+    public static final String LINE_BREAK_CHARACTERS = " -";
+    public static final int ERROR_MSG_DISPLAY_TIME = 3 * 1000; // 3 seconds
+    public static final int MAX_ERR_MSG_LENGTH = 10;
     public static final int DEFAULT_MAX_INPUT_LEN = 5000;
 
-    // GUI Character Elements
-    public static final char[] DEFAULT_BORDER = {'+', '-', '+', '|', '+', '-', '+', '|'};
+    // Style Settings Key Constants
+    public static final String STYLE_BORDER_CHARSTR = "style.border_charstr";
 
-    // Menu Style
-    public static final int MENU_TITLE_MAX_WIDTH = 50;
-    public static final int DEFAULT_MENU_TITLE_X = 6;
-    public static final int DEFAULT_MENU_TITLE_Y = 3;
-    public static final int DEFAULT_MENU_OPTS_X = 6;
-    public static final int DEFAULT_MENU_OPTS_Y = 7;
-    public static final String LINE_BREAK_CHARACTERS = " -";
-    public static final String DEFAULT_EXIT_OPTION_NAME = "Back";
+    public static final String LAYOUT_TEXT_DEF_WIDTH = "layout.text.def_width";
+    public static final String LAYOUT_TITLE_CONTENT_GAP = "layout.title_content_gap";
+    public static final String LAYOUT_CONTENT_PROMPT_GAP = "layout.content_prompt_gap";
+    public static final String LAYOUT_LOAD_MARGIN_SIDE = "layout.load.margin_side";
+    public static final String LAYOUT_LOAD_MARGIN_TOP = "layout.load.margin_top";
+    public static final String LAYOUT_PAGE_MARGIN_LEFT = "layout.page.margin_left";
+    public static final String LAYOUT_PAGE_MARGIN_TOP = "layout.page.margin_top";
+    public static final String LAYOUT_MENU_TITLE_MAX_WIDTH = "layout.menu.title.max_width";
+    public static final String LAYOUT_INPUT_MARGIN_LEFT = "layout.input.margin_left";
 
-    // Loading Options
-    public static final String DEFAULT_LOADING_MSG = "Loading...";
-    public static final String LOADING_COMPLETE_MSG = "Press [ENTER] to continue.";
-    public static final int LOADING_BAR_MARGIN_TOP = 3;
-    public static final int LOADING_BAR_MARGIN_SIDES = 6;
-    public static final char LOADING_BAR_CHARACTER = '#';
-
-    // Page Style Constants
-    public static final int TITLE_CONTENT_GAP = 1;
-    public static final int CONTENT_PROMPT_GAP = 1;
-    public static final int DEFAULT_PAGE_MARGIN_TOP = 3;
-    public static final int DEFAULT_PAGE_MARGIN_LEFT = 6;
-    public static final int TEXT_PAGE_BOX_WIDTH = 75;
-    public static final String TEXT_PAGE_RETURN_TXT = "Press [ENTER] to go back.";
-
-    // Markup Tags
-    public static final String MARKUP_NEWLINE = "<NEWLINE>";
+    public static final String STRINGS_LOADING_DEF_MSG = "strings.loading.def_msg";
+    public static final String STRINGS_LOADING_BAR_CHAR = "strings.loading.bar_char";
+    public static final String STRINGS_PROMPT_CONTINUE = "strings.prompt.continue";
+    public static final String STRINGS_PROMPT_BACK = "strings.prompt.back";
+    public static final String STRINGS_DEF_EXIT_MSG = "strings.def_exit_msg";
 
 }
