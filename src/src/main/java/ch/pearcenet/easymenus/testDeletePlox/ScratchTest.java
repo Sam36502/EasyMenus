@@ -68,7 +68,8 @@ public class ScratchTest {
                                         "I'd say today went well, but I've got work tomorrow..."
                         )
                 ),
-                new PrimeFinderInputPage()
+                new PrimeFinderInputPage(),
+                new PopupPage()
         );
         mainMenu.callPage();
 

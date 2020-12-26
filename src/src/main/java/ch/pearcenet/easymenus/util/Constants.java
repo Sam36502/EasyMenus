@@ -11,6 +11,7 @@ public class Constants {
     public static final int ERROR_MSG_DISPLAY_TIME = 3 * 1000; // 3 seconds
     public static final int MAX_ERR_MSG_LENGTH = 10;
     public static final int DEFAULT_MAX_INPUT_LEN = 5000;
+    public static final String EASY_MENUS_VERSION = "1.0 - Alpha";
 
     // Style Settings Key Constants
     public static final String STYLE_BORDER_CHARSTR = "style.border_charstr";
@@ -25,6 +26,9 @@ public class Constants {
     public static final String LAYOUT_PAGE_MARGIN_TOP = "layout.page.margin_top";
     public static final String LAYOUT_MENU_TITLE_MAX_WIDTH = "layout.menu.title.max_width";
     public static final String LAYOUT_INPUT_MARGIN_LEFT = "layout.input.margin_left";
+    public static final String LAYOUT_POPUP_X = "layout.popup.x";           // Note: It will stack overflow,
+    public static final String LAYOUT_POPUP_Y = "layout.popup.y";           // if any of these three, or
+    public static final String LAYOUT_POPUP_WIDTH = "layout.popup.width";   // 'strings.prompt.continue' is missing.
 
     public static final String COLOUR_TEXT_FG = "colour.text_fg";
     public static final String COLOUR_TEXT_BG = "colour.text_bg";

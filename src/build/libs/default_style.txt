@@ -19,6 +19,9 @@ layout.page.margin_left=6
 layout.page.margin_top=3
 layout.menu.title.max_width=50
 layout.input.margin_left=6
+layout.popup.x=18
+layout.popup.y=9
+layout.popup.width=25
 
 # Colours
 # Available Colours:

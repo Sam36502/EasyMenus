@@ -48,10 +48,15 @@ public class Colour {
             case "BRIGHT_YELLOW": return new Colour(Ansi.Color.YELLOW, true);
 
             default:
-                //TODO: Competent Error Handling
-                System.out.println(
-                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
-                                + "ERROR: Invalid Colour '" + name + "' parsed.");
+                AnsiUtils.popupBox(
+                        "Attempted to parse a colour, but invalid colour name given:\n" +
+                            " Name: '" + name + "'",
+                        "! ERROR !",
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_BG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_BG)
+                );
                 System.exit(1);
                 return null;
         }

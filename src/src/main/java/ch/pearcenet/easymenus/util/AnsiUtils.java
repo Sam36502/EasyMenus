@@ -1,5 +1,6 @@
 package ch.pearcenet.easymenus.util;
 
+import ch.pearcenet.easymenus.pages.Page;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
@@ -41,25 +42,28 @@ public class AnsiUtils {
             STYLE_SETTINGS.load(is);
         } catch (IOException e) {
             loadDefaultStyle();
-            setCursorColour(
+            printWithMargins(
+                    renderColourString(
                     getSettingsColour(Constants.COLOUR_ERROR_FG),
                     getSettingsColour(Constants.COLOUR_ERROR_BG)
-            );
-            printWithMargins("" +
-                    "ERROR: Unable to load style file '" + filename + "'.\n" +
+                    ) +
+                    "\n\nERROR: Unable to load style file '" + filename + "'.\n" +
                     "Would you like to use the default style instead?",
                     getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
-            resetCursorColour();
             boolean cont = InputUtils.getBool();
             if (!cont) {
                 setCursorColour(
                         getSettingsColour(Constants.COLOUR_ERROR_FG),
                         getSettingsColour(Constants.COLOUR_ERROR_BG)
                 );
-                printWithMargins("Exiting...\n" +
-                                "Please inform the developers, if possible.",
+                printWithMargins(
+                        renderColourString(
+                            getSettingsColour(Constants.COLOUR_ERROR_FG),
+                            getSettingsColour(Constants.COLOUR_ERROR_BG)
+                        ) +
+                        "\nExiting...\n" +
+                        "Please inform the developers, if possible.",
                         getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
-                resetCursorColour();
                 System.exit(1);
             }
             clearScreen();
@@ -93,6 +97,9 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.LAYOUT_PAGE_MARGIN_TOP, "3");
         STYLE_SETTINGS.put(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH, "50");
         STYLE_SETTINGS.put(Constants.LAYOUT_INPUT_MARGIN_LEFT, "6");
+        STYLE_SETTINGS.put(Constants.LAYOUT_POPUP_X, "18");
+        STYLE_SETTINGS.put(Constants.LAYOUT_POPUP_Y, "9");
+        STYLE_SETTINGS.put(Constants.LAYOUT_POPUP_WIDTH, "25");
 
         STYLE_SETTINGS.put(Constants.COLOUR_TEXT_FG, "WHITE");
         STYLE_SETTINGS.put(Constants.COLOUR_TEXT_BG, "BLACK");
@@ -129,21 +136,30 @@ public class AnsiUtils {
     public static String getSettingsString(String key) {
 
         if (STYLE_SETTINGS == null) {
-            clearScreen();
-            setCursorColour(
+            popupBox(
+                    "No style file file loaded.\n" +
+                        "Try adding `AnsiUtils.loadDefaultStyle();` to your initialisation.\n" +
+                        "Or if you're using a custom style file, check you've used the correct " +
+                        "filename and that the file can be found and read.",
+                    "! ERROR !",
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG),
                     getSettingsColour(Constants.COLOUR_ERROR_FG),
                     getSettingsColour(Constants.COLOUR_ERROR_BG)
             );
-            System.out.println("Error: No style settings loaded.\n" +
-                    "       Try adding `AnsiUtils.loadDefaultStyle();` to your main,\n" +
-                    "       or check if your style file is being loaded correctly.\n\n");
             System.exit(1);
-            resetCursorColour();
         }
 
         if (!STYLE_SETTINGS.containsKey(key)) {
-            // TODO: Competent Error-Handling
-            System.out.println("Error: Invalid Key requested from STYLE_SETTINGS: '" + key + "'");
+            popupBox(
+                    "Non-existent key requested from Settings: '" + key + "'.\n" +
+                        "Please make sure your style file is being loaded correctly.",
+                    "! ERROR !",
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG),
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG)
+            );
             System.exit(1);
         }
 
@@ -160,8 +176,15 @@ public class AnsiUtils {
         try {
             i = Integer.parseInt(getSettingsString(key));
         } catch (NumberFormatException e) {
-            // TODO: Competent Error-Handling
-            System.out.println("Error: Attempted to get non-integer value from STYLE_SETTINGS: '" + key + "' is actually: '" + getSettingsString(key) + "'");
+            popupBox(
+                    "Attempted to read integer setting, but setting was string:\n" +
+                        " Key: '" + key + "', Value: '" + getSettingsString(key) + "'",
+                    "! ERROR !",
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG),
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG)
+            );
             System.exit(1);
         }
         return i;
@@ -525,6 +548,40 @@ public class AnsiUtils {
         printInBox(newtitle, leftMargin, topMargin, width);
         for (int i = 0; i<getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP); i++) { System.out.print("\n"); }
         printInBox(str, leftMargin, width);
+    }
+
+    /**
+     * Displays the text and title in an offset popup box and
+     * returns to the given page when enter is pressed
+     * @param str The text to display
+     * @param title The popup box title
+     * @param titleFg The foreground colour of the title
+     * @param titleBg The background colour of the title
+     * @param textFg The foreground colour of the text
+     * @param textBg The background colour of the text
+     */
+    public static void popupBox(
+            final String str,
+            final String title,
+            final Colour titleFg, final Colour titleBg,
+            final Colour textFg, final Colour textBg
+    ) {
+        printInBox(
+                title,
+                getSettingsInt(Constants.LAYOUT_POPUP_X),
+                getSettingsInt(Constants.LAYOUT_POPUP_Y),
+                getSettingsInt(Constants.LAYOUT_POPUP_WIDTH),
+                titleFg, titleBg
+        );
+        printInBox(
+                str
+                        + "\n\n" + getSettingsString(Constants.STRINGS_PROMPT_CONTINUE),
+                getSettingsInt(Constants.LAYOUT_POPUP_X),
+                getSettingsInt(Constants.LAYOUT_POPUP_Y) + 3,
+                getSettingsInt(Constants.LAYOUT_POPUP_WIDTH),
+                textFg, textBg
+        );
+        InputUtils.waitForEnter();
     }
 
 }

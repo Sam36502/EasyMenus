@@ -65,7 +65,6 @@ public class InputPage implements LoadedPage {
         }
     }
 
-    //TODO: Remove?
     public ArrayList<Input> getInputs() {
         return inputs;
     }
