@@ -92,6 +92,11 @@ public class TextPage implements LoadedPage {
     }
 
     @Override
+    public void callPage(InputPage inputPage) {
+        callPage();
+    }
+
+    @Override
     public void load(LoadingPage loadingPage) {
         loadingPage.completeAll();
     }

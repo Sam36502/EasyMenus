@@ -23,6 +23,29 @@ public class ScratchTest {
         //AnsiUtils.loadDefaultStyle();
         AnsiUtils.loadStyleFile(".\\test_style.txt");
 
+        MenuPage blog = new MenuPage(
+                "Secret Blog",
+                "<WIP BUGGY DON'T SELECT>",
+                new TextPage(
+                        "Day 1",
+                        "Today, I didn't do very much."
+                ),
+                new TextPage(
+                        "Day 2 - Dev time!",
+                        "Day 2",
+                        "After school today, I decided to do some programming and managed to fix a " +
+                                "particularly annoying bug while simultaneously cleaning up some code that had " +
+                                "been bothering me.\n" +
+                                "\n" +
+                                "I'd say today went well, but I've got work tomorrow...")
+        );
+        blog.getOptions().add(new InputPage(
+                "New Blog Entry",
+                new NewBlogPage(blog),
+                new StringInput("Entry Title"),
+                new StringInput("Entry Text")
+        ));
+
         Page mainMenu = new MenuPage("Test System",
                 "None",
                 "Exit",
@@ -51,23 +74,7 @@ public class ScratchTest {
                                 "\n" +
                                 "Nowthisisunbreakablebecausetherearenospacesorhyphensinit.Whatwillthealgorithmdo?Iwonder...\n"
                 ),
-                new MenuPage(
-                        "Secret Blog",
-                        "<WIP BUGGY DON'T SELECT>",
-                        new TextPage(
-                                "Day 1",
-                                "Today, I didn't do very much."
-                        ),
-                        new TextPage(
-                                "Day 2 - Dev time!",
-                                "Day 2",
-                                "After school today, I decided to do some programming and managed to fix a " +
-                                        "particularly annoying bug while simultaneously cleaning up some code that had " +
-                                        "been bothering me.\n" +
-                                        "\n" +
-                                        "I'd say today went well, but I've got work tomorrow..."
-                        )
-                ),
+                blog,
                 new PrimeFinderInputPage(),
                 new PopupPage(),
                 new TextPage(

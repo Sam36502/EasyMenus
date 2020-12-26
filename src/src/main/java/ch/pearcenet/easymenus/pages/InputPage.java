@@ -19,15 +19,18 @@ public class InputPage implements LoadedPage {
 
     private String optionName;
 
-    public InputPage(String title, Input... inputs) {
-        this.title = title;
-        this.optionName = title;
-        this.inputs = new ArrayList<>(Arrays.asList(inputs));
-    }
+    private Page nextPage;
 
-    public InputPage(String title, String optionName, Input... inputs) {
+    public InputPage(String title, Input... inputs) { this(title, title, inputs); }
+
+    public InputPage(String title, Page nextPage, Input... inputs) { this(title, title, nextPage, inputs); }
+
+    public InputPage(String title, String optionName, Input... inputs) { this(title, title, null, inputs); }
+
+    public InputPage(String title, String optionName, Page nextPage, Input... inputs) {
         this.title = title;
         this.optionName = optionName;
+        this.nextPage = nextPage;
         this.inputs = new ArrayList<>(Arrays.asList(inputs));
     }
 
@@ -63,6 +66,13 @@ public class InputPage implements LoadedPage {
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT));
             confirmed = InputUtils.getBool();
         }
+
+        if (nextPage != null) { nextPage.callPage(this); }
+    }
+
+    @Override
+    public void callPage(InputPage inputPage) {
+        callPage();
     }
 
     public ArrayList<Input> getInputs() {

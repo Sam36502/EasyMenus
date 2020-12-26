@@ -143,4 +143,9 @@ public class LoadingPage implements Page {
             nextPage.callPage();
         }
     }
+
+    @Override
+    public void callPage(InputPage inputPage) {
+        callPage();
+    }
 }

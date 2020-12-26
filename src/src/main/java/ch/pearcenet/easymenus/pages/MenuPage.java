@@ -99,9 +99,12 @@ public class MenuPage implements LoadedPage {
         }
     }
 
-    public ArrayList<Page> getOptions() {
-        return options;
+    @Override
+    public void callPage(InputPage inputPage) {
+        callPage();
     }
+
+    public ArrayList<Page> getOptions() { return options; }
 
     public String getTitle() {
         return title;

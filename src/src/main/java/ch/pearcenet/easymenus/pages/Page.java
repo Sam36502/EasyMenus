@@ -11,4 +11,6 @@ public interface Page {
 
     public void callPage();
 
+    public void callPage(InputPage inputPage);
+
 }
