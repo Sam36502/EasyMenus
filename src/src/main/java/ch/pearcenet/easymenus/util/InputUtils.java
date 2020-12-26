@@ -32,6 +32,10 @@ public class InputUtils {
     public static String getString() {
         if (input == null) { openScanner(); }
 
+        AnsiUtils.setCursorColour(
+                AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_FG),
+                AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_BG)
+        );
         System.out.print(
                 Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                         + "> ");
@@ -55,6 +59,10 @@ public class InputUtils {
                 i = Integer.parseInt(in);
             } catch (NumberFormatException ex) {
                 isValid = false;
+                AnsiUtils.setCursorColour(
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_BG)
+                );
                 System.out.println(
                         Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                                 + "ERROR: Invalid number");
@@ -81,7 +89,11 @@ public class InputUtils {
 
             if (i < min || i > max) {
                 isValid = false;
-                System.out.print(
+                AnsiUtils.setCursorColour(
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_BG)
+                );
+                System.out.println(
                         Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                                 + "ERROR: Number out range");
                 i = getInt();
@@ -117,6 +129,10 @@ public class InputUtils {
             }
 
             if (isValid == false) {
+                AnsiUtils.setCursorColour(
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        AnsiUtils.getSettingsColour(Constants.COLOUR_ERROR_BG)
+                );
                 System.out.println(
                         Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                                 + "ERROR: Invalid answer; answer must be 'yes' or 'no'.");

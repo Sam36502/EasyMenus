@@ -69,7 +69,6 @@ public class LoadingPage implements Page {
     }
 
     private void drawScreen() {
-        String loadingBar = "";
         int length = AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
                 - (2 * AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_SIDE))
                 - 2;
@@ -99,6 +98,7 @@ public class LoadingPage implements Page {
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
         );
 
+        String loadingBar = "";
         while (loadingBar.length() < numChars) {
             loadingBar += AnsiUtils.getSettingsString(Constants.STRINGS_LOADING_BAR_CHAR);
         }
@@ -110,7 +110,9 @@ public class LoadingPage implements Page {
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP)
                         + AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_TOP) + 2
                         + AnsiUtils.getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP),
-                length
+                length,
+                AnsiUtils.getSettingsColour(Constants.COLOUR_LOADING_FG),
+                AnsiUtils.getSettingsColour(Constants.COLOUR_LOADING_BG)
         );
 
         AnsiUtils.moveCursor(0,

@@ -26,6 +26,37 @@ public class Colour {
         return isBright;
     }
 
+    public static Colour parseColour(final String name) {
+        String upperName = name.toUpperCase();
+        switch (upperName) {
+            case "BLACK": return new Colour(Ansi.Color.BLACK, false);
+            case "BLUE": return new Colour(Ansi.Color.BLUE, false);
+            case "CYAN": return new Colour(Ansi.Color.CYAN, false);
+            case "GREEN": return new Colour(Ansi.Color.GREEN, false);
+            case "MAGENTA": return new Colour(Ansi.Color.MAGENTA, false);
+            case "RED": return new Colour(Ansi.Color.RED, false);
+            case "WHITE": return new Colour(Ansi.Color.WHITE, false);
+            case "YELLOW": return new Colour(Ansi.Color.YELLOW, false);
+
+            case "BRIGHT_BLACK": return new Colour(Ansi.Color.BLACK, true);
+            case "BRIGHT_BLUE": return new Colour(Ansi.Color.BLUE, true);
+            case "BRIGHT_CYAN": return new Colour(Ansi.Color.CYAN, true);
+            case "BRIGHT_GREEN": return new Colour(Ansi.Color.GREEN, true);
+            case "BRIGHT_MAGENTA": return new Colour(Ansi.Color.MAGENTA, true);
+            case "BRIGHT_RED": return new Colour(Ansi.Color.RED, true);
+            case "BRIGHT_WHITE": return new Colour(Ansi.Color.WHITE, true);
+            case "BRIGHT_YELLOW": return new Colour(Ansi.Color.YELLOW, true);
+
+            default:
+                //TODO: Competent Error Handling
+                System.out.println(
+                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                                + "ERROR: Invalid Colour '" + name + "' parsed.");
+                System.exit(1);
+                return null;
+        }
+    }
+
     // Colour Constants
 
     public static final Colour BLACK = new Colour(Ansi.Color.BLACK, false);

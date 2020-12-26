@@ -31,6 +31,10 @@ public class Input<T> {
                     "\n" + AnsiUtils.renderWithUnderline(name) + "\n",
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
             );
+            AnsiUtils.setCursorColour(
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_FG),
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_BG)
+            );
             System.out.print("  > ");
     }
 

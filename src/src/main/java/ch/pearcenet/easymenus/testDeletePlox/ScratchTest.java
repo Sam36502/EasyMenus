@@ -20,7 +20,8 @@ public class ScratchTest {
 
         AnsiUtils.installConsole();
         InputUtils.openScanner();
-        AnsiUtils.loadStyleFile(".\\default_style.txt");
+        //AnsiUtils.loadDefaultStyle();
+        AnsiUtils.loadStyleFile(".\\test_style.txt");
 
         Page mainMenu = new MenuPage("Test System",
                 "None",

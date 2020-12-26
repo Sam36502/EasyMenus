@@ -23,6 +23,8 @@ public class PrimeFinderInputPage extends InputPage {
     public void callPage() {
         super.callPage();
 
+        int estNumPrimes = (int) (maxPrimeIn.getAnswer() / Math.log(maxPrimeIn.getAnswer()));
+
         LoadedPage next = new PrimeFinderPage(maxPrimeIn.getAnswer());
         LoadingPage load = new LoadingPage(
                 "Computing Primes:",
@@ -31,7 +33,7 @@ public class PrimeFinderInputPage extends InputPage {
                         "Fun fact: Primes are kinda weird.\n" +
                         "That's it. They just don't really make sense.",
                 next,
-                maxPrimeIn.getAnswer()
+                estNumPrimes
         );
         load.callPage();
 

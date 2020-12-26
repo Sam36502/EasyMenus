@@ -1,0 +1,52 @@
+#  Default Style Properties
+# --------------------------
+#
+#  Remember to make a backup of this
+#  file before editing.
+#
+
+# Decoration Elements
+style.border_charstr=+-+|+-+|
+style.line_break_chars= -
+
+# Layout Elements
+layout.text.width=50
+layout.title_content_gap=1
+layout.content_prompt_gap=1
+layout.load.margin_side=6
+layout.load.margin_top=3
+layout.page.margin_left=6
+layout.page.margin_top=3
+layout.menu.title.max_width=50
+layout.input.margin_left=6
+
+# Colours
+# Available Colours:
+#
+#    BLACK,    BRIGHT_BLACK,
+#    BLUE,     BRIGHT_BLUE,
+#    CYAN,     BRIGHT_CYAN,
+#    GREEN,    BRIGHT_GREEN,
+#    MAGENTA,  BRIGHT_MAGENTA,
+#    RED,      BRIGHT_RED,
+#    WHITE,    BRIGHT_WHITE,
+#    YELLOW,   BRIGHT_YELLOW
+#
+colour.text_fg=WHITE
+colour.text_bg=BLACK
+# deco means borders, underlines, etc.
+colour.deco_fg=WHITE
+colour.deco_bg=BLACK
+colour.error_fg=BRIGHT_RED
+colour.error_bg=BLACK
+colour.prompt_fg=WHITE
+colour.prompt_bg=BLACK
+colour.loading_fg=GREEN
+colour.loading_bg=BLACK
+
+# Strings
+strings.loading.def_msg=Loading...
+strings.loading.bar_char=#
+strings.prompt.continue=Press [ENTER] to continue.
+strings.prompt.back=Press [ENTER] to go back.
+strings.def_exit_msg=Back

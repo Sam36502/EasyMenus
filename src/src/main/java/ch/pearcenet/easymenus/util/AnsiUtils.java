@@ -27,6 +27,9 @@ public class AnsiUtils {
      */
     public static void uninstallConsole() { AnsiConsole.systemUninstall(); }
 
+    private static String COL_TEXT_STR;
+    private static String COL_DECO_STR;
+
     /**
      * Loads console style settings from a file.
      * @param filename The file to load settings from
@@ -38,19 +41,38 @@ public class AnsiUtils {
             STYLE_SETTINGS.load(is);
         } catch (IOException e) {
             loadDefaultStyle();
-            AnsiUtils.printWithMargins("" +
+            setCursorColour(
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG)
+            );
+            printWithMargins("" +
                     "ERROR: Unable to load style file '" + filename + "'.\n" +
                     "Would you like to use the default style instead?",
                     getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
+            resetCursorColour();
             boolean cont = InputUtils.getBool();
             if (!cont) {
-                AnsiUtils.printWithMargins("Exiting...\n" +
+                setCursorColour(
+                        getSettingsColour(Constants.COLOUR_ERROR_FG),
+                        getSettingsColour(Constants.COLOUR_ERROR_BG)
+                );
+                printWithMargins("Exiting...\n" +
                                 "Please inform the developers, if possible.",
                         getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
+                resetCursorColour();
                 System.exit(1);
             }
-            AnsiUtils.clearScreen();
+            clearScreen();
         }
+
+        COL_TEXT_STR = renderColourString(
+                getSettingsColour(Constants.COLOUR_TEXT_FG),
+                getSettingsColour(Constants.COLOUR_TEXT_BG)
+        );
+        COL_DECO_STR = renderColourString(
+                getSettingsColour(Constants.COLOUR_DECO_FG),
+                getSettingsColour(Constants.COLOUR_DECO_BG)
+        );
     }
 
     /// Settings Methods ///
@@ -60,6 +82,7 @@ public class AnsiUtils {
     public static void loadDefaultStyle() {
         STYLE_SETTINGS = new Properties();
         STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "+-+|+-+|");
+        STYLE_SETTINGS.put(Constants.STYLE_LINE_BRK_CHARS, " -");
 
         STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_WIDTH, "100");
         STYLE_SETTINGS.put(Constants.LAYOUT_TITLE_CONTENT_GAP, "1");
@@ -71,11 +94,31 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.LAYOUT_MENU_TITLE_MAX_WIDTH, "50");
         STYLE_SETTINGS.put(Constants.LAYOUT_INPUT_MARGIN_LEFT, "6");
 
+        STYLE_SETTINGS.put(Constants.COLOUR_TEXT_FG, "WHITE");
+        STYLE_SETTINGS.put(Constants.COLOUR_TEXT_BG, "BLACK");
+        STYLE_SETTINGS.put(Constants.COLOUR_DECO_FG, "WHITE");
+        STYLE_SETTINGS.put(Constants.COLOUR_DECO_BG, "BLACK");
+        STYLE_SETTINGS.put(Constants.COLOUR_ERROR_FG, "BRIGHT_RED");
+        STYLE_SETTINGS.put(Constants.COLOUR_ERROR_BG, "BLACK");
+        STYLE_SETTINGS.put(Constants.COLOUR_PROMPT_FG, "WHITE");
+        STYLE_SETTINGS.put(Constants.COLOUR_PROMPT_BG, "BLACK");
+        STYLE_SETTINGS.put(Constants.COLOUR_LOADING_FG, "GREEN");
+        STYLE_SETTINGS.put(Constants.COLOUR_LOADING_BG, "BLACK");
+
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "#");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_BACK, "Press [ENTER] to go back.");
         STYLE_SETTINGS.put(Constants.STRINGS_DEF_EXIT_MSG, "Back");
+
+        COL_TEXT_STR = renderColourString(
+                getSettingsColour(Constants.COLOUR_TEXT_FG),
+                getSettingsColour(Constants.COLOUR_TEXT_BG)
+        );
+        COL_DECO_STR = renderColourString(
+                getSettingsColour(Constants.COLOUR_DECO_FG),
+                getSettingsColour(Constants.COLOUR_DECO_BG)
+        );
     }
 
     /**
@@ -86,11 +129,16 @@ public class AnsiUtils {
     public static String getSettingsString(String key) {
 
         if (STYLE_SETTINGS == null) {
-            AnsiUtils.clearScreen();
+            clearScreen();
+            setCursorColour(
+                    getSettingsColour(Constants.COLOUR_ERROR_FG),
+                    getSettingsColour(Constants.COLOUR_ERROR_BG)
+            );
             System.out.println("Error: No style settings loaded.\n" +
                     "       Try adding `AnsiUtils.loadDefaultStyle();` to your main,\n" +
                     "       or check if your style file is being loaded correctly.\n\n");
             System.exit(1);
+            resetCursorColour();
         }
 
         if (!STYLE_SETTINGS.containsKey(key)) {
@@ -117,6 +165,10 @@ public class AnsiUtils {
             System.exit(1);
         }
         return i;
+    }
+
+    public static Colour getSettingsColour(String key) {
+        return Colour.parseColour(getSettingsString(key));
     }
 
     /// Basic Formatting Methods ///
@@ -164,6 +216,28 @@ public class AnsiUtils {
     }
 
     /**
+     * Renders a string which can be printed to set the cursor's colour
+     * @param fg The foreground (text) colour
+     * @param bg The background colour
+     * @return The ANSI codes in a string
+     */
+    public static String renderColourString(final Colour fg, final Colour bg) {
+        String render = "";
+        if (fg.isBright()) {
+            render += Ansi.ansi().fgDefault().fgBright(fg.getAnsiColour());
+        } else {
+            render += Ansi.ansi().fgDefault().fg(fg.getAnsiColour());
+        }
+
+        if (bg.isBright()) {
+            render += Ansi.ansi().bgDefault().bgBright(bg.getAnsiColour());
+        } else {
+            render += Ansi.ansi().bgDefault().bg(bg.getAnsiColour());
+        }
+        return render;
+    }
+
+    /**
      * Moves a cursor relative to its current position.
      * Positive moves right/down; negative moves left/up.
      * @param x Number of columns to move left/right
@@ -191,7 +265,8 @@ public class AnsiUtils {
      */
     public static String renderWithUnderline(final String str) {
         String render = "";
-        render += " " + str + "\n--";
+
+        render += " " + COL_TEXT_STR + str + "\n" + COL_DECO_STR + "--";
         for (int i=0; i<str.length(); i++) { render += "-"; }
         return render;
     }
@@ -207,7 +282,7 @@ public class AnsiUtils {
     public static String renderWithUnderline(final String str, final String leftCap, final char line, final String rightCap) {
         String render = "";
         for (int i=0; i<leftCap.length(); i++) { render += " "; }
-        render += str + "\n" + leftCap;
+        render += COL_TEXT_STR + str + "\n" + COL_DECO_STR + leftCap;
         for (int i=0; i<str.length(); i++) { render += line; }
         render += rightCap;
         return render;
@@ -220,11 +295,12 @@ public class AnsiUtils {
      */
     public static void printWithMargins(final String str, final int leftMargin) {
         String[] strs = str.split("\\n");
-        System.out.print(Ansi.ansi().cursorToColumn(leftMargin));
+        System.out.print(Ansi.ansi().cursorToColumn(leftMargin) + COL_TEXT_STR);
         for (String s: strs) {
             System.out.print(s);
             System.out.print(Ansi.ansi().cursorDownLine().cursorToColumn(leftMargin));
         }
+        resetCursorColour();
     }
 
     /**
@@ -236,10 +312,15 @@ public class AnsiUtils {
     public static void printWithMargins(final String str, final int leftMargin, final int topMargin) {
         String[] strs = str.split("\\n");
         setCursorPos(topMargin, leftMargin);
+        setCursorColour(
+                getSettingsColour(Constants.COLOUR_TEXT_FG),
+                getSettingsColour(Constants.COLOUR_TEXT_BG)
+        );
         for (String s: strs) {
             System.out.print(s);
             System.out.print(Ansi.ansi().cursorDownLine().cursorToColumn(leftMargin));
         }
+        resetCursorColour();
     }
 
     /**
@@ -250,7 +331,38 @@ public class AnsiUtils {
      * @param topMargin The top margin of the box
      * @param width The width of the box
      */
-    public static void printInBox(final String inStr, final int leftMargin, final int topMargin, final int width) {
+    public static void printInBox(
+            final String inStr,
+            final int leftMargin,
+            final int topMargin,
+            final int width
+    ) {
+        printInBox(
+                inStr,
+                leftMargin, topMargin,
+                width,
+                getSettingsColour(Constants.COLOUR_TEXT_FG), getSettingsColour(Constants.COLOUR_TEXT_BG)
+        );
+    }
+
+    /**
+     * Prints the given string in an ASCII-art box
+     * with the given margins and width.
+     * @param inStr The string to print
+     * @param leftMargin The left margin of the box
+     * @param topMargin The top margin of the box
+     * @param width The width of the box
+     * @param fg The foreground colour of the text
+     * @param bg The background colour of the text
+     */
+    public static void printInBox(
+            final String inStr,
+            final int leftMargin,
+            final int topMargin,
+            final int width,
+            final Colour fg,
+            final Colour bg
+    ) {
         // Split text into equal-length strings split on newlines.
         ArrayList<String> lines = new ArrayList<>();
 
@@ -266,7 +378,7 @@ public class AnsiUtils {
             if (ind - lastInd >= width) {
                 int oldInd = ind;
                 boolean foundSplit = true;
-                while (!getSettingsString(Constants.LINE_BREAK_CHARACTERS).contains("" + inStr.charAt(ind))) {
+                while (!getSettingsString(Constants.STYLE_LINE_BRK_CHARS).contains("" + inStr.charAt(ind))) {
                     ind--;
                     if (ind == lastInd) {
                         ind = oldInd;
@@ -292,16 +404,18 @@ public class AnsiUtils {
             ind++;
         }
 
+        String textColour = renderColourString(fg, bg);
+
         // Place text in ASCII-art box (Border configuration in Constants)
         String render = "";
-        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
+        render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
         for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(1);
         render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(2) + "\n";
 
         for (String line: lines) {
-            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + " " + line;
+            render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + textColour + " " + line;
             for (int i=0; i<width - line.length() + 1; i++) render += " ";
-            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
+            render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
         render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(6);
@@ -334,7 +448,7 @@ public class AnsiUtils {
             if (ind - lastInd >= width) {
                 int oldInd = ind;
                 boolean foundSplit = true;
-                while (!Constants.LINE_BREAK_CHARACTERS.contains("" + inStr.charAt(ind))) {
+                while (!getSettingsString(Constants.STYLE_LINE_BRK_CHARS).contains("" + inStr.charAt(ind))) {
                     ind--;
                     if (ind == lastInd) {
                         ind = oldInd;
@@ -362,14 +476,14 @@ public class AnsiUtils {
 
         // Place text in ASCII-art box (Border configuration in Constants)
         String render = "";
-        render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
+        render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(0);
         for (int i=0; i<width + 2; i++) render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(1);
         render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(2) + "\n";
 
         for (String line: lines) {
-            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + " " + line;
+            render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + COL_TEXT_STR + " " + line;
             for (int i=0; i<width - line.length() + 1; i++) render += " ";
-            render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
+            render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
         render += getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(6);

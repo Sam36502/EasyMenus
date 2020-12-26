@@ -16,7 +16,7 @@ public class PrimeFinderPage extends TextPage {
     }
 
     private boolean isPrime(int p) {
-        for (int i=2; i<p; i++) {
+        for (int i=4; i<p; i++) {
             if (p % i == 0) {
                 return false;
             }
