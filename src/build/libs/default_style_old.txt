@@ -9,7 +9,7 @@
 style.border_charstr=+-+|+-+|
 
 # Layout Elements
-layout.text.def_width=100
+layout.text.width=50
 layout.title_content_gap=1
 layout.content_prompt_gap=1
 layout.load.margin_side=6

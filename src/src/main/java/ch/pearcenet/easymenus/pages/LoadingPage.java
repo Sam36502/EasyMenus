@@ -70,7 +70,7 @@ public class LoadingPage implements Page {
 
     private void drawScreen() {
         String loadingBar = "";
-        int length = AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
+        int length = AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
                 - (2 * AnsiUtils.getSettingsInt(Constants.LAYOUT_LOAD_MARGIN_SIDE))
                 - 2;
         int numChars = (int) Math.round(((double) tasksCompleted / (double) numTasks) * (double) length);
@@ -96,7 +96,7 @@ public class LoadingPage implements Page {
         AnsiUtils.printInBoxWithTitle(render, title,
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
-                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
         );
 
         while (loadingBar.length() < numChars) {
@@ -134,7 +134,7 @@ public class LoadingPage implements Page {
             AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
             AnsiUtils.printInBox(AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_CONTINUE),
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
-                    AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_CONTINUE).length()
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
             );
             InputUtils.waitForEnter();
             resetProgress();

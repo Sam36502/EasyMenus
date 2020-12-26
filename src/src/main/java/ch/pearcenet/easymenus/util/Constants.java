@@ -16,7 +16,7 @@ public class Constants {
     // Style Settings Key Constants
     public static final String STYLE_BORDER_CHARSTR = "style.border_charstr";
 
-    public static final String LAYOUT_TEXT_DEF_WIDTH = "layout.text.def_width";
+    public static final String LAYOUT_TEXT_WIDTH = "layout.text.width";
     public static final String LAYOUT_TITLE_CONTENT_GAP = "layout.title_content_gap";
     public static final String LAYOUT_CONTENT_PROMPT_GAP = "layout.content_prompt_gap";
     public static final String LAYOUT_LOAD_MARGIN_SIDE = "layout.load.margin_side";

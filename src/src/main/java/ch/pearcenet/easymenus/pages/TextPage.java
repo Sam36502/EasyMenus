@@ -59,13 +59,13 @@ public class TextPage implements LoadedPage {
         AnsiUtils.printInBoxWithTitle(content, title,
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
-                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH)
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
         );
 
         AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
         AnsiUtils.printInBox(AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK),
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
-                AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK).length()
+                AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
         );
         InputUtils.waitForEnter();
     }

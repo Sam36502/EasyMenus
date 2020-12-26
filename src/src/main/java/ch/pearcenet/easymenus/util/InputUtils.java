@@ -30,6 +30,8 @@ public class InputUtils {
      * @return The string the user entered
      */
     public static String getString() {
+        if (input == null) { openScanner(); }
+
         System.out.print(
                 Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                         + "> ");
@@ -66,8 +68,8 @@ public class InputUtils {
     /**
      * Prompts the user for an integer within a range and
      * handles any invalid or out-of-range input.
-     * @param min
-     * @param max
+     * @param min Minimum allowed input value
+     * @param max Maximum allowed input value
      * @return The integer the user entered
      */
     public static int getInt(final int min, final int max) {
@@ -79,7 +81,7 @@ public class InputUtils {
 
             if (i < min || i > max) {
                 isValid = false;
-                System.out.println(
+                System.out.print(
                         Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
                                 + "ERROR: Number out range");
                 i = getInt();
@@ -87,6 +89,45 @@ public class InputUtils {
         }
 
         return i;
+    }
+
+    /**
+     * Prompts the user with a yes/no prompt
+     * @return If the 'yes' answer was received
+     */
+    public static boolean getBool() {
+        System.out.println(
+                Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                        + "(y/n)");
+
+        String in = getString();
+        boolean isValid = false;
+        boolean answer = false;
+
+        while (!isValid) {
+
+            if ("yes".equals(in) || "y".equals(in)) {
+                isValid = true;
+                answer = true;
+            }
+
+            if ("no".equals(in) || "n".equals(in)) {
+                isValid = true;
+                answer = false;
+            }
+
+            if (isValid == false) {
+                System.out.println(
+                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                                + "ERROR: Invalid answer; answer must be 'yes' or 'no'.");
+                System.out.println(
+                        Ansi.ansi().cursorToColumn(AnsiUtils.getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT))
+                                + "(y/n)");
+                in = getString();
+            }
+        }
+
+        return answer;
     }
 
 }

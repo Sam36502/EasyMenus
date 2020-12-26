@@ -3,6 +3,7 @@ package ch.pearcenet.easymenus.pages;
 import ch.pearcenet.easymenus.input.Input;
 import ch.pearcenet.easymenus.util.AnsiUtils;
 import ch.pearcenet.easymenus.util.Constants;
+import ch.pearcenet.easymenus.util.InputUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,12 +58,10 @@ public class InputPage implements LoadedPage {
             }
 
             // Confirm Inputs
-            AnsiUtils.printWithMargins("\nIs this correct? (y/n)\n", AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT));
-            System.out.print("  > ");
-            String in = input.nextLine();
-            if ("y".equals(in) || "yes".equals(in)) {
-                confirmed = true;
-            }
+            AnsiUtils.printWithMargins(
+                    "\nIs this correct?\n",
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT));
+            confirmed = InputUtils.getBool();
         }
     }
 

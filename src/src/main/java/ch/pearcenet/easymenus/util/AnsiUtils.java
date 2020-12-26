@@ -37,11 +37,19 @@ public class AnsiUtils {
             InputStream is = new FileInputStream(filename);
             STYLE_SETTINGS.load(is);
         } catch (IOException e) {
-            // TODO: Competent Error-Handling
-            System.out.println("Error: Unable to load settings from file: '" + filename + "'");
-            System.exit(1);
-
-            //TODO: Fall-back on default map
+            loadDefaultStyle();
+            AnsiUtils.printWithMargins("" +
+                    "ERROR: Unable to load style file '" + filename + "'.\n" +
+                    "Would you like to use the default style instead?",
+                    getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
+            boolean cont = InputUtils.getBool();
+            if (!cont) {
+                AnsiUtils.printWithMargins("Exiting...\n" +
+                                "Please inform the developers, if possible.",
+                        getSettingsInt(Constants.LAYOUT_INPUT_MARGIN_LEFT));
+                System.exit(1);
+            }
+            AnsiUtils.clearScreen();
         }
     }
 
@@ -53,7 +61,7 @@ public class AnsiUtils {
         STYLE_SETTINGS = new Properties();
         STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "+-+|+-+|");
 
-        STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_DEF_WIDTH, "100");
+        STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_WIDTH, "100");
         STYLE_SETTINGS.put(Constants.LAYOUT_TITLE_CONTENT_GAP, "1");
         STYLE_SETTINGS.put(Constants.LAYOUT_CONTENT_PROMPT_GAP, "1");
         STYLE_SETTINGS.put(Constants.LAYOUT_LOAD_MARGIN_SIDE, "6");
@@ -380,7 +388,7 @@ public class AnsiUtils {
      * @param topMargin The top margin of the box
      */
     public static void printInBoxWithTitle(final String str, final String title, final int leftMargin, final int topMargin) {
-        printInBoxWithTitle(str, title, leftMargin, topMargin, getSettingsInt(Constants.LAYOUT_TEXT_DEF_WIDTH));
+        printInBoxWithTitle(str, title, leftMargin, topMargin, getSettingsInt(Constants.LAYOUT_TEXT_WIDTH));
     }
 
     /**

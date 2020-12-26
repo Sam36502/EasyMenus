@@ -22,7 +22,7 @@ public class ScratchTest {
         InputUtils.openScanner();
         AnsiUtils.loadStyleFile(".\\default_style.txt");
 
-        Page mainMenu = new MenuPage("Test System with a long title",
+        Page mainMenu = new MenuPage("Test System",
                 "None",
                 "Exit",
                 new TextPage(
