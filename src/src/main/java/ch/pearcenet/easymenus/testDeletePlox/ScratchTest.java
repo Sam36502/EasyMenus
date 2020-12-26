@@ -69,7 +69,57 @@ public class ScratchTest {
                         )
                 ),
                 new PrimeFinderInputPage(),
-                new PopupPage()
+                new PopupPage(),
+                new TextPage(
+                        "Jabberwocky - by Lewis Carroll",
+                        "Jabberwocky",
+                        "'Twas brillig and the slithy toves\n" +
+                                "did gyre and gimble in the wabe.\n" +
+                                "All mimsy were the borogoves,\n" +
+                                "and the mome raths outgrabe.",
+                        new TextPage(
+                                "Jabberwocky - by Lewis Carroll",
+                                "\"Beware the Jabberwock my boy!\n" +
+                                        "The jaws that bite; the claws that catch!\n" +
+                                        "Beware the jub-jub bird and\n" +
+                                        "shun the frumious Bandersnatch\"",
+                                new TextPage(
+                                        "Jabberwocky - by Lewis Carroll",
+                                        "He took his vorpal sword in hand.\n" +
+                                                "Long time the manxsome foe he sought.\n" +
+                                                "So rested he by the tum-tum tree,\n" +
+                                                "and stood a while in thought.",
+                                        new TextPage(
+                                                "Jabberwocky - by Lewis Carroll",
+                                                "and as in uffish thought he stood,\n" +
+                                                        "the Jabberwock with eyes of flame,\n" +
+                                                        "came whiffling through the tulgey wood\n" +
+                                                        "and burbled as it came.",
+                                                new TextPage(
+                                                        "Jabberwocky - by Lewis Carroll",
+                                                        "One two, one two, and through and through!\n" +
+                                                                "The vorpal blade went snicker-snack.\n" +
+                                                                "He left it dead, and with its head,\n" +
+                                                                "he went gallumphing back.",
+                                                        new TextPage(
+                                                                "Jabberwocky - by Lewis Carroll",
+                                                                "\"And hast thou slain the Jabberwock?\n" +
+                                                                        "O come to my arms my beamish boy!\n" +
+                                                                        "O frabjous day, calooh calay\",\n" +
+                                                                        "He chortled in his joy",
+                                                                new TextPage(
+                                                                        "Jabberwocky - by Lewis Carroll",
+                                                                        "'Twas Brillig and the slithy toves\n" +
+                                                                                "did gyre and gimble in the wabe.\n" +
+                                                                                "All mimsy were the borogoves,\n" +
+                                                                                "and the mome raths outgrabe."
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
         );
         mainMenu.callPage();
 

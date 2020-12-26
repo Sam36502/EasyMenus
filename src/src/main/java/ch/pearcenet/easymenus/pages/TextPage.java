@@ -15,6 +15,8 @@ public class TextPage implements LoadedPage {
 
     private String optionName;
 
+    private Page nextPage;
+
     private String content;
 
     public TextPage(String title, String content) {
@@ -22,9 +24,18 @@ public class TextPage implements LoadedPage {
     }
 
     public TextPage(String title, String optionName, String content) {
+        this(title, optionName, content, null);
+    }
+
+    public TextPage(String title, String content, Page nextPage) {
+        this(title, title, content, nextPage);
+    }
+
+    public TextPage(String title, String optionName, String content, Page nextPage) {
         this.title = title;
         this.optionName = optionName;
         this.content = content;
+        this.nextPage = nextPage;
     }
 
     public TextPage setTitle(String title) {
@@ -63,11 +74,21 @@ public class TextPage implements LoadedPage {
         );
 
         AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_CONTENT_PROMPT_GAP));
-        AnsiUtils.printInBox(AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK),
+
+        String prompt = AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_BACK);
+        if (nextPage != null) {
+            prompt = AnsiUtils.getSettingsString(Constants.STRINGS_PROMPT_CONTINUE);
+        }
+
+        AnsiUtils.printInBox(
+                prompt,
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
                 AnsiUtils.getSettingsInt(Constants.LAYOUT_TEXT_WIDTH)
         );
         InputUtils.waitForEnter();
+        if (nextPage != null) {
+            nextPage.callPage();
+        }
     }
 
     @Override
