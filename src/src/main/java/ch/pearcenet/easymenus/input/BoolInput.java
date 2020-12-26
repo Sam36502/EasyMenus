@@ -12,7 +12,7 @@ public class BoolInput extends Input<Boolean> {
     }
 
     @Override
-    public void displayPrompt(String title, Scanner input) {
+    public boolean displayPrompt(String title, Scanner input) {
         boolean result = false;
         boolean validAnswer = false;
         while (!validAnswer) {
@@ -21,6 +21,10 @@ public class BoolInput extends Input<Boolean> {
             super.displayPrompt(title, input);
 
             String in = input.nextLine().toLowerCase();
+
+            if ("EXIT".equals(in.toUpperCase()) || "CANCEL".equals(in.toUpperCase())) {
+                return true;
+            }
 
             if (
                     !"y".equals(in)
@@ -39,6 +43,7 @@ public class BoolInput extends Input<Boolean> {
 
         }
         setAnswer(result);
+        return false;
     }
 
 }

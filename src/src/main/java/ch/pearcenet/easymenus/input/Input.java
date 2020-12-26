@@ -21,12 +21,25 @@ public class Input<T> {
         this.answer = null;
     }
 
-    public void displayPrompt(String title, Scanner input) {
+    public boolean displayPrompt(String title, Scanner input) {
             AnsiUtils.clearScreen();
             AnsiUtils.printInBox(title,
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
                     title.length());
+            AnsiUtils.setCursorColour(
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_FG),
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_BG)
+            );
+            AnsiUtils.moveCursor(0, AnsiUtils.getSettingsInt(Constants.LAYOUT_TITLE_CONTENT_GAP));
+            AnsiUtils.printWithMargins(
+                    "(Type 'EXIT' to cancel and go back.)",
+                    AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
+            );
+            AnsiUtils.setCursorColour(
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_TEXT_FG),
+                    AnsiUtils.getSettingsColour(Constants.COLOUR_TEXT_BG)
+            );
             AnsiUtils.printWithMargins(
                     "\n" + AnsiUtils.renderWithUnderline(name) + "\n",
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT)
@@ -36,6 +49,7 @@ public class Input<T> {
                     AnsiUtils.getSettingsColour(Constants.COLOUR_PROMPT_BG)
             );
             System.out.print("  > ");
+            return false;
     }
 
     public T getAnswer() {

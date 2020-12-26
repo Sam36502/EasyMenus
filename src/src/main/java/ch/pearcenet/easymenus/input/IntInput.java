@@ -22,7 +22,7 @@ public class IntInput extends Input<Integer> {
     }
 
     @Override
-    public void displayPrompt(String title, Scanner input) {
+    public boolean displayPrompt(String title, Scanner input) {
         int result = 0;
         boolean validAnswer = false;
         while (!validAnswer) {
@@ -31,6 +31,11 @@ public class IntInput extends Input<Integer> {
             super.displayPrompt(title, input);
 
             String in = input.nextLine();
+
+            if ("EXIT".equals(in.toUpperCase()) || "CANCEL".equals(in.toUpperCase())) {
+                return true;
+            }
+
             try {
                 result = Integer.parseInt(in);
             } catch (NumberFormatException numEx) {
@@ -63,6 +68,7 @@ public class IntInput extends Input<Integer> {
 
         }
         setAnswer(result);
+        return false;
     }
 
 }

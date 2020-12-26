@@ -33,7 +33,7 @@ public class StringInput extends Input<String> {
     }
 
     @Override
-    public void displayPrompt(String title, Scanner input) {
+    public boolean displayPrompt(String title, Scanner input) {
         String in = "";
         boolean validAnswer = false;
         while (!validAnswer) {
@@ -42,6 +42,11 @@ public class StringInput extends Input<String> {
             super.displayPrompt(title, input);
 
             in = input.nextLine();
+
+            if ("EXIT".equals(in.toUpperCase()) || "CANCEL".equals(in.toUpperCase())) {
+                return true;
+            }
+
             if (in.length() > maxLength) {
                 validAnswer = false;
                 AnsiUtils.printWithMargins(
@@ -66,6 +71,7 @@ public class StringInput extends Input<String> {
 
         }
         setAnswer(in);
+        return false;
     }
 
 }

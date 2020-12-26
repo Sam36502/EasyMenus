@@ -44,13 +44,17 @@ public class InputPage implements LoadedPage {
         boolean confirmed = false;
         while (!confirmed) {
             for (Input field : inputs) {
-                field.displayPrompt(title, input);
+                boolean cancelled = field.displayPrompt(title, input);
+                if (cancelled) {
+                    return;
+                }
             }
             AnsiUtils.clearScreen();
             AnsiUtils.printInBox(title,
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_LEFT),
                     AnsiUtils.getSettingsInt(Constants.LAYOUT_PAGE_MARGIN_TOP),
-                    title.length());
+                    title.length()
+            );
 
             for (Input field : inputs) {
                 AnsiUtils.printWithMargins(
