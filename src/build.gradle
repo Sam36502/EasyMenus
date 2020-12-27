@@ -3,10 +3,35 @@ plugins {
 }
 
 group 'ch.pearcenet'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 repositories {
     mavenCentral()
+}
+
+// For Testing
+task testJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Test JAR File',
+                'Implementation-Version': version,
+                'Main-Class': 'ch.pearcenet.easymenus.testDeletePlox.ScratchTest'
+    }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+// For Release
+task releaseJar(type: Jar) {
+
+    from sourceSets.main.output
+
+    exclude 'ch/pearcenet/easymenus/testDeletePlox/**'
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    }
 }
 
 dependencies {
