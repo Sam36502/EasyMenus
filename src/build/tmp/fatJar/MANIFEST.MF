@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Implementation-Title: Library JAR
-Implementation-Version: 1.0-SNAPSHOT
+Implementation-Title: EasyMenus-1.0
+Implementation-Version: 1.0
 
