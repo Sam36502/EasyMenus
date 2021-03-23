@@ -20,8 +20,8 @@ public class ScratchTest {
 
         AnsiUtils.installConsole();
         InputUtils.openScanner();
-        //AnsiUtils.loadDefaultStyle();
-        AnsiUtils.loadStyleFile(".\\test_style.txt");
+        AnsiUtils.loadDefaultStyle();
+        //AnsiUtils.loadStyleFile(".\\test_style.txt");
 
         MenuPage blog = new MenuPage(
                 "Secret Blog",
@@ -126,6 +126,17 @@ public class ScratchTest {
                                         )
                                 )
                         )
+                ),
+                new MarkupTextPage(
+                        "Markup Test Page",
+                        "<b>This is a markup page!</b><br>" +
+                                "<br>" +
+                                "If all went well, this page should look much cooler than the" +
+                                "others, because some elements are formatted:<br>" +
+                                "<br>" +
+                                " <mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +
+                                "<br>" +
+                                " <strong>This text has been emphasized with the <lt>strong<gt> tag</strong>"
                 )
         );
         mainMenu.callPage();

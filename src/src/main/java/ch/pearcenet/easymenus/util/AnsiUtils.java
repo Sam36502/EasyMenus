@@ -112,6 +112,9 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_FG, "GREEN");
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_BG, "BLACK");
 
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_FG, "BLACK");
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_BG, "YELLOW");
+
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "#");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");

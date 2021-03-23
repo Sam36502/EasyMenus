@@ -47,6 +47,10 @@ colour.prompt_bg=BLACK
 colour.loading_fg=GREEN
 colour.loading_bg=BLACK
 
+# Markup
+markup.highlight_fg=BLACK
+markup.highlight_bg=YELLOW
+
 # Strings
 strings.loading.def_msg=Loading...
 strings.loading.bar_char=#
