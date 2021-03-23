@@ -112,6 +112,9 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_FG, "GREEN");
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_BG, "BLACK");
 
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_FG, "BLACK");
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_BG, "YELLOW");
+
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "\u2588");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");
@@ -505,7 +508,11 @@ public class AnsiUtils {
 
         for (String line: lines) {
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + COL_TEXT_STR + " " + line;
-            for (int i=0; i<width - line.length() + 1; i++) render += " ";
+
+            // Calculate length without ANSI codes
+            int len = line.replaceAll("\u001B\\[([0-9]+(;[0-9]+)*)m", "").length();
+
+            for (int i=0; i<width - len + 1; i++) render += " ";
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 

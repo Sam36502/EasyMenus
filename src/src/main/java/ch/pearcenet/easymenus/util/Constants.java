@@ -41,6 +41,8 @@ public class Constants {
     public static final String COLOUR_LOADING_FG = "colour.loading_fg";
     public static final String COLOUR_LOADING_BG = "colour.loading_bg";
 
+    public static final String MARKUP_HIGHLIGHT_FG = "markup.highlight_fg";
+    public static final String MARKUP_HIGHLIGHT_BG = "markup.highlight_bg";
 
     public static final String STRINGS_LOADING_DEF_MSG = "strings.loading.def_msg";
     public static final String STRINGS_LOADING_BAR_CHAR = "strings.loading.bar_char";
