@@ -85,7 +85,7 @@ public class AnsiUtils {
 
     public static void loadDefaultStyle() {
         STYLE_SETTINGS = new Properties();
-        STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "+-+|+-+|");
+        STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "\u250C\u2500\u2510\u2502\u2518\u2500\u2514\u2502");
         STYLE_SETTINGS.put(Constants.STYLE_LINE_BRK_CHARS, " -");
 
         STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_WIDTH, "100");
@@ -113,7 +113,7 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_BG, "BLACK");
 
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
-        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "#");
+        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "\u2588");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_BACK, "Press [ENTER] to go back.");
         STYLE_SETTINGS.put(Constants.STRINGS_DEF_EXIT_MSG, "Back");

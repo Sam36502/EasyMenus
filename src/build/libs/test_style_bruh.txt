@@ -19,7 +19,7 @@ style.border_charstr=\u250C\u2500\u2510\u2502\u2518\u2500\u2514\u2502
 style.line_break_chars= -
 
 # Layout Elements
-layout.text.width=50
+layout.text.width=100
 layout.title_content_gap=1
 layout.content_prompt_gap=1
 layout.load.margin_side=6
@@ -51,7 +51,7 @@ colour.deco_fg=WHITE
 colour.deco_bg=BLACK
 colour.error_fg=BRIGHT_RED
 colour.error_bg=BLACK
-colour.prompt_fg=WHITE
+colour.prompt_fg=YELLOW
 colour.prompt_bg=BLACK
 colour.loading_fg=GREEN
 colour.loading_bg=BLACK
