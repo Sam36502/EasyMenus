@@ -6,7 +6,16 @@
 #
 
 # Decoration Elements
-style.border_charstr=+-+|+-+|
+#
+# Border Chars layout:
+#  ...=12345678
+#
+# 122223
+# 8    4
+# 8    4
+# 766665
+#
+style.border_charstr=\u250C\u2500\u2510\u2502\u2518\u2500\u2514\u2502
 style.line_break_chars= -
 
 # Layout Elements
@@ -47,9 +56,13 @@ colour.prompt_bg=BLACK
 colour.loading_fg=GREEN
 colour.loading_bg=BLACK
 
+# Markup
+markup.highlight_fg=BLACK
+markup.highlight_bg=YELLOW
+
 # Strings
 strings.loading.def_msg=Loading...
-strings.loading.bar_char=#
+strings.loading.bar_char=\u2588
 strings.prompt.continue=Press [ENTER] to continue.
 strings.prompt.back=Press [ENTER] to go back.
 strings.def_exit_msg=Back

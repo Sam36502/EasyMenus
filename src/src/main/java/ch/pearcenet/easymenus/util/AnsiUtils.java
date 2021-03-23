@@ -85,7 +85,7 @@ public class AnsiUtils {
 
     public static void loadDefaultStyle() {
         STYLE_SETTINGS = new Properties();
-        STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "+-+|+-+|");
+        STYLE_SETTINGS.put(Constants.STYLE_BORDER_CHARSTR, "\u250C\u2500\u2510\u2502\u2518\u2500\u2514\u2502");
         STYLE_SETTINGS.put(Constants.STYLE_LINE_BRK_CHARS, " -");
 
         STYLE_SETTINGS.put(Constants.LAYOUT_TEXT_WIDTH, "100");
@@ -112,8 +112,11 @@ public class AnsiUtils {
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_FG, "GREEN");
         STYLE_SETTINGS.put(Constants.COLOUR_LOADING_BG, "BLACK");
 
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_FG, "BLACK");
+        STYLE_SETTINGS.put(Constants.MARKUP_HIGHLIGHT_BG, "YELLOW");
+
         STYLE_SETTINGS.put(Constants.STRINGS_LOADING_DEF_MSG, "Loading...");
-        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "#");
+        STYLE_SETTINGS.put(Constants.STRINGS_LOADING_BAR_CHAR, "\u2588");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_CONTINUE, "Press [ENTER] to continue.");
         STYLE_SETTINGS.put(Constants.STRINGS_PROMPT_BACK, "Press [ENTER] to go back.");
         STYLE_SETTINGS.put(Constants.STRINGS_DEF_EXIT_MSG, "Back");
@@ -505,7 +508,11 @@ public class AnsiUtils {
 
         for (String line: lines) {
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + COL_TEXT_STR + " " + line;
-            for (int i=0; i<width - line.length() + 1; i++) render += " ";
+
+            // Calculate length without ANSI codes
+            int len = line.replaceAll("\u001B\\[([0-9]+(;[0-9]+)*)m", "").length();
+
+            for (int i=0; i<width - len + 1; i++) render += " ";
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
