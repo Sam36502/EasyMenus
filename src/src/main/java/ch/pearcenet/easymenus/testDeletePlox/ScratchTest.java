@@ -129,14 +129,16 @@ public class ScratchTest {
                 ),
                 new MarkupTextPage(
                         "Markup Test Page",
-                        "<b>This is a markup page!</b><br>" +
+                        "<h1>This is a markup page!</h1><br>" +
                                 "<br>" +
-                                "If all went well, this page should look much cooler than the" +
+                                "If all went well, this page should look much cooler than the " +
                                 "others, because some elements are formatted:<br>" +
                                 "<br>" +
-                                "\t<mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +
+                                "<t><mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +
                                 "<br>" +
-                                "\t<strong>This text has been emphasized with the <lt>strong<gt> tag</strong><br>"
+                                "<t><strong>This text has been emphasized with the <lt>strong<gt> tag</strong><br>" +
+                                "<br>" +
+                                "<t><col fg=black; bg=cyan;>Whee the <lt>col<gt> tag is so cool!</col><br><br>"
                 )
         );
         mainMenu.callPage();
