@@ -134,9 +134,9 @@ public class ScratchTest {
                                 "If all went well, this page should look much cooler than the" +
                                 "others, because some elements are formatted:<br>" +
                                 "<br>" +
-                                " <mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +
+                                "\t<mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +
                                 "<br>" +
-                                " <strong>This text has been emphasized with the <lt>strong<gt> tag</strong>"
+                                "\t<strong>This text has been emphasized with the <lt>strong<gt> tag</strong><br>"
                 )
         );
         mainMenu.callPage();

@@ -508,7 +508,11 @@ public class AnsiUtils {
 
         for (String line: lines) {
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(7) + COL_TEXT_STR + " " + line;
-            for (int i=0; i<width - line.length() + 1; i++) render += " ";
+
+            // Calculate length without ANSI codes
+            int len = line.replaceAll("\u001B\\[([0-9]+(;[0-9]+)*)m", "").length();
+
+            for (int i=0; i<width - len + 1; i++) render += " ";
             render += COL_DECO_STR + getSettingsString(Constants.STYLE_BORDER_CHARSTR).charAt(3) + "\n";
         }
 
