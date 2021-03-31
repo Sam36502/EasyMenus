@@ -13,4 +13,6 @@ public interface Page {
 
     public void callPage(InputPage inputPage);
 
+    public void setNext(LoadedPage nextPage);
+
 }

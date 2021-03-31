@@ -145,6 +145,9 @@ public class LoadingPage implements Page {
     }
 
     @Override
+    public void setNext(LoadedPage nextPage) { this.nextPage = nextPage; }
+
+    @Override
     public void callPage(InputPage inputPage) {
         callPage();
     }

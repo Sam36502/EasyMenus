@@ -131,7 +131,7 @@ public class ScratchTest {
                         "Markup Test Page",
                         "<h1>This is a markup page!</h1><br>" +
                                 "<br>" +
-                                "If all went well, this page should look much cooler than the " +
+                                "If all went well, this page should look much cooler than the\n" +
                                 "others, because some elements are formatted:<br>" +
                                 "<br>" +
                                 "<t><mark>This text has been highlighted using the <lt>mark<gt> tag!</mark><br>" +

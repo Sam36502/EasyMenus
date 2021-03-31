@@ -100,6 +100,9 @@ public class MenuPage implements LoadedPage {
     }
 
     @Override
+    public void setNext(LoadedPage nextPage) {  }
+
+    @Override
     public void callPage(InputPage inputPage) {
         callPage();
     }

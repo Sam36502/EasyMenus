@@ -1,9 +1,6 @@
 package ch.pearcenet.easymenus.testDeletePlox;
 
-import ch.pearcenet.easymenus.pages.InputPage;
-import ch.pearcenet.easymenus.pages.MenuPage;
-import ch.pearcenet.easymenus.pages.Page;
-import ch.pearcenet.easymenus.pages.TextPage;
+import ch.pearcenet.easymenus.pages.*;
 
 public class NewBlogPage implements Page {
 
@@ -20,6 +17,9 @@ public class NewBlogPage implements Page {
 
     @Override
     public void callPage() { }
+
+    @Override
+    public void setNext(LoadedPage nextPage) { }
 
     @Override
     public void callPage(InputPage inputPage) {

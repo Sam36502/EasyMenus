@@ -100,4 +100,9 @@ public class TextPage implements LoadedPage {
     public void load(LoadingPage loadingPage) {
         loadingPage.completeAll();
     }
+
+    @Override
+    public void setNext(LoadedPage nextPage) {
+        this.nextPage = nextPage;
+    }
 }
